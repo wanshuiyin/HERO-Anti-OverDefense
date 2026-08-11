@@ -35,7 +35,7 @@
 | **[`RULES.md`](RULES.md)** | 契约本体(中英各一份),以及三处真正不好划的边界。 |
 | **[`cases/`](cases/README.md)** | 观察到的行为:要求是什么、agent 做了什么、为什么不成比例、正确该怎样。**这份不粘进配置**——它是 agent 跟你争的时候,你甩回去的东西。 |
 | **[`hosts/`](hosts/README.md)** | 粘到哪儿——Claude Code、Codex、Antigravity、Copilot、Cursor、Windsurf、Gemini CLI。 |
-| **[`examples/`](examples/)** | 可选。贡献者按自己项目改写出来的配置——拿去参考,不是规范块的替代品。 |
+| **[`examples/`](examples/)** | 可选,不属于 HERO 本体。贡献者为**自己项目**写的真实 `AGENTS.md` / `CLAUDE.md`,分享出来给你看他们是怎么把这套思路落到自己领域的。**不是** HERO 的变体,也不是[精简版](RULES.md#the-short-version)——里面的阈值是他们项目的。学写法,别照抄文件。 |
 
 ---
 
