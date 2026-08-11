@@ -44,6 +44,7 @@ nothing to install.
 | **[`RULES.md`](RULES.md)** | The contract, in English and Chinese, plus the three places the line is genuinely hard to draw. |
 | **[`cases/`](cases/README.md)** | Observed behaviours: what was asked, what the agent did, why it is disproportionate, what proportionate looks like. **You do not paste this in** — it is what you quote back when the agent argues. |
 | **[`hosts/`](hosts/README.md)** | Where to paste it — Claude Code, Codex, Antigravity, Copilot, Cursor, Windsurf, Gemini CLI. |
+| **[`examples/`](examples/)** | Optional. Project-specific configs contributors adapted from the block — read for ideas, not a replacement for it. |
 
 ---
 

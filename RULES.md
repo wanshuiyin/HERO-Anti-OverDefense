@@ -193,12 +193,12 @@ The block, and nothing else. There is no setting that points at `cases/`, no
 path to register, no flag to switch on. If you have pasted the block into the
 file your agent reads on every turn, you are done.
 
-`cases/` is deliberately not loaded by your agent. It is roughly eight times the
-size of the block, and an agent carrying eighteen worked examples of *this is
-over-defense* starts matching real findings against them and dismissing the ones
-that rhyme — the exact failure this contract exists to prevent. The six one-line
-shapes inside the block are as much of the catalogue as belongs in a file read on
-every turn.
+`cases/` is deliberately not loaded by your agent. It is several times the size
+of the block and grows with every contribution, and an agent carrying the whole
+catalogue of worked examples of *this is over-defense* starts matching real
+findings against them and dismissing the ones that rhyme — the exact failure this
+contract exists to prevent. The six one-line shapes inside the block are as much
+of the catalogue as belongs in a file read on every turn.
 
 The catalogue is for you, afterwards: when your agent insists some hardening is
 necessary and you think it is not, quote the entry by ID and ask how its proposal

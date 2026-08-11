@@ -19,12 +19,13 @@ IDs are `HERO-<family>-<nnn>`. Families are defined in [`../RULES.md`](../RULES.
 
 ## How to use this
 
-**Not by pasting it into your agent's config.** This file is roughly eight times
-the size of the block, and an agent carrying eighteen worked examples of *this is
-over-defense* will start matching real findings against them and dismissing the
-ones that rhyme — which is the failure the contract exists to prevent. The block
-already carries six one-line examples for calibration; that is as much of this
-catalogue as belongs in a file loaded on every turn.
+**Not by pasting it into your agent's config.** This file is several times the
+size of the block and grows with every contribution, and an agent carrying the
+whole catalogue of worked examples of *this is over-defense* will start matching
+real findings against them and dismissing the ones that rhyme — which is the
+failure the contract exists to prevent. The block already carries six one-line
+examples for calibration; that is as much of this catalogue as belongs in a file
+loaded on every turn.
 
 **Use it the other way round: for the argument after the fact.** When your agent
 insists some hardening is necessary and you think it is not, quote the entry —
