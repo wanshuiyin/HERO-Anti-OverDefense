@@ -48,6 +48,25 @@ nothing to install.
 
 ---
 
+## 📢 What's changed
+
+Only two things get an entry here: **the block changed** — because you pasted a
+copy of it somewhere and yours is now stale — and **a new case landed**.
+Rewording, layout and images do not. If everything got logged, the one signal
+that matters would be buried in the noise, which is `HERO-R` in the repository
+about `HERO-R`.
+
+- **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 📓 **Two cases from long-running quantitative research** ([#1](https://github.com/wanshuiyin/HERO-Anti-OverDefense/pull/1), thanks [@leisurexhx](https://github.com/leisurexhx)). `HERO-R-006` — audit loops that displaced the experiment they were auditing. `HERO-O-005` — a permanent version tree for every recoverable engineering failure. With an [anonymised case study](cases/quant-research-audit-loop.md) carrying event-log evidence, and the first [`examples/`](examples/) entry. The observation worth reading even if you skip the cases: a general "use only the checks you need" lost to a twelve-stage workflow written into the *same prompt*. Specific beats general — now a named limitation in [RULES.md](RULES.md#what-this-does-not-do).
+- **2026-08-11** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🧱 **The block gained rule 6, eight worked examples, and a short variant.** Rule 6 says none of this overrides security, migration, verification or review the user or the project explicitly asked for — without it an agent could cite rule 3 at someone who had just requested a migration path. Six one-line shapes now calibrate the four families, and two counterexamples marked `✓` say *report these*, so the block no longer hands out six templates for dismissal and none for reporting. A [short version](RULES.md#the-short-version) drops the examples at about half the size.
+- **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 🧱 **HERO published** — the four families, the paste-in block, and 16 catalogued behaviours extracted from ARIS.
+
+> ⚠️ **If you pasted the block before the entries above, your copy is stale.** The
+> one-command install will not fix it — the guard that stops it appending twice
+> also stops it replacing what is already there. Delete your old
+> `=== SCOPE LIMITS ... ===` section and run the command again.
+
+---
+
 ## 🚀 Quickstart
 
 Paste this into the file your agent already reads on every turn — `CLAUDE.md`,

@@ -39,6 +39,18 @@
 
 ---
 
+## 📢 更新记录
+
+这里只记两种事:**块变了**(因为你已经把它粘到别处,你手上那份现在是旧的),以及**新增了 case**。改措辞、调排版、换图都不记。什么都记的话,唯一重要的那个信号就被噪音淹了——而那正是 `HERO-R`,发生在一个讲 `HERO-R` 的仓库里。
+
+- **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 📓 **来自量化研究长跑的两条 case**([#1](https://github.com/wanshuiyin/HERO-Anti-OverDefense/pull/1),感谢 [@leisurexhx](https://github.com/leisurexhx))。`HERO-R-006` —— 审计循环把它要审计的那个实验挤掉了;`HERO-O-005` —— 每一次可恢复的工程失败都长出一棵永久版本树。附一份带事件日志证据的[匿名案例研究](cases/quant-research-audit-loop.md),以及 [`examples/`](examples/) 的第一条。**就算不看 case 也值得读的一句**:一句笼统的"只做必要的检查",输给了写在**同一个 prompt 里**的十二阶段流程。具体压过笼统 —— 现在是 [RULES.md](RULES.md#what-this-does-not-do) 里一条有名字的局限。
+- **2026-08-11** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🧱 **块新增了规则 6、八个例子和一个精简版。** 规则 6 明确:用户或项目**明确要求**的安全、迁移、校验、审阅不受这些限制约束——没有它,agent 完全可能搬出规则 3 去驳回一个刚刚点名要迁移路径的用户。六条一行的形状负责校准四个族,另有两条标 `✓` 的反例写着**这些要报**,这样块就不再是"发六个驳回模板、零个上报样本"。另有[精简版](RULES.md#the-short-version),去掉例子,约一半体积。
+- **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 🧱 **HERO 发布** —— 四个族、可粘贴的块,以及从 ARIS 里剥出来的 16 条行为案例。
+
+> ⚠️ **如果你在上面这些条目之前粘过块,你手上那份已经过期了。** 一条命令的安装**修不了**它 —— 那个防止重复追加的 guard,同时也拦住了它替换已有内容。请先删掉旧的 `=== 范围约束…===` 那一段,再重新跑一次命令。
+
+---
+
 ## 🚀 快速开始
 
 把下面这段粘进你的 agent **每一轮都会读**的那个文件——`CLAUDE.md`、`AGENTS.md`、`.github/copilot-instructions.md`、`.cursorrules`。完整对照表见 [`hosts/`](hosts/README.md)。
