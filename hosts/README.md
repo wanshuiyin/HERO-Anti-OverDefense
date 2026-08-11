@@ -48,8 +48,13 @@ Treat that as a preference, not a measured effect. We have not tested it, and th
 one-command install in the README appends to the end of the file, which we
 consider fine — appending cannot damage what is already there, and buying a
 top-of-file position would mean rewriting someone's config through a temp file
-for an ordering effect nobody has demonstrated. If you ever catch a specific
-instruction winning against the block, move it up; that is one cut and paste.
+for an ordering effect nobody has demonstrated.
+
+What *has* been reported is that the axis is specificity, not position: a general
+"use only the checks you need" lost to a twelve-stage workflow written into the
+same prompt, and moving it would not have saved it. If something in your config
+is beating the block, look for the more concrete instruction before you look at
+the line number — [`RULES.md`](../RULES.md#what-this-does-not-do) has the case.
 
 ## If you also review with a second model
 

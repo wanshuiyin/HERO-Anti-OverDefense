@@ -270,6 +270,20 @@ constraint still wins. This *is* configuration — but configuration by defeasib
 natural-language instruction, which a stronger instruction can override. It is
 not enforcement.
 
+**Your own detailed workflow will outrank it.** This is the failure mode most
+likely to bite you, and it is not the model being disobedient. One reported case:
+the same prompt that carried a general "use only the sanity checks you need" also
+specified twelve stages of protocol freezes, gates, versioned roots, independent
+auditors and review packets. The agent followed the concrete instruction over the
+general one — which, faced with two instructions from the same user, is the
+defensible reading. The block lost because it was the vaguer half of a
+self-conflicting prompt, not because it was in the wrong place in the file.
+
+So this block cannot rescue a config that specifies heavy process elsewhere. If
+your project genuinely needs freezes, audit chains or versioned artifacts, say
+*when* they apply and *what ends them*, with the same specificity you gave the
+workflow. An unbounded stage list beats any general preference, every time.
+
 **Model choice is also a lever.** Several reports describe switching to an
 earlier or different model and the problem simply going away. If a task is
 especially sensitive to this failure, that may be a more direct fix than any
