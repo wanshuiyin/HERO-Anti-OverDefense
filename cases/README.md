@@ -171,6 +171,25 @@ answer; only "it might catch something" is not.
 **Proportionate:** this is proportionate. Scope the run to the consumers of the
 thing you changed, not to everything.
 
+### HERO-R-006 · Research audit loops that displaced the experiment
+**Asked:** continue a long-running quantitative research pipeline, start the
+expensive data work, and use only the sanity checks needed for trustworthy
+numbers.
+**Did:** repeatedly froze protocols, created gates, re-ran preflights, paired
+builders with independent auditors, generated review packets and updated recovery
+documents while the requested computation remained behind the process. Even
+after the user explicitly asked to skip complex ineffective review, monitoring
+continued at near-shard cadence until corrected again.
+**Why it is over-defense:** temporal leakage checks and numerical-equivalence
+checks were real requirements. The later loops did not answer a new live
+uncertainty; they converted optional confidence into mandatory workflow and made
+audit activity the visible output.
+**Proportionate:** keep the checks that can change the scientific conclusion:
+clock/label causality, split isolation, key alignment, real-slice formula checks,
+post-optimization equivalence and final aggregation. Give intermediate builders
+one targeted check; reserve one independent recomputation for the final result
+that supports the paper claim. See the [full anonymised case study](quant-research-audit-loop.md).
+
 ---
 
 ## O — Overbuild
@@ -212,6 +231,20 @@ the same code, running over an hour.
 **Why it is over-defense:** parallel re-reading is not more rigour, it is the
 same look repeated. Cost scales with agents; information does not.
 **Proportionate:** fan out when the shards genuinely see different things.
+
+### HERO-O-005 · A permanent version for every recoverable failure
+**Asked:** fix routine data-processing failures and keep the main computation
+moving.
+**Did:** ordinary implementation bugs and resource-estimate misses produced new
+V4/V5/V6 roots, invocation records, admission contracts, immutable manifests and
+versioned recovery prompts. A local fix became a lineage event, and each lineage
+event justified more checking and documentation.
+**Why it is over-defense:** the scientific definition had not changed and no
+downstream result had consumed the failed output. The permanent versions
+preserved incomplete attempts that should have stayed task-owned temporary work.
+**Proportionate:** reuse one active work root for engineering retries. Create a
+new durable version only when scientific semantics change or an already-consumed
+result must remain reproducible. See the [full anonymised case study](quant-research-audit-loop.md).
 
 ---
 
