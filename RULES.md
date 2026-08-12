@@ -191,14 +191,14 @@ Chinese, same text:
 
 The block, and nothing else. There is no setting that points at `cases/`, no
 path to register, no flag to switch on. If you have pasted the block into the
-file your agent reads on every turn, you are done.
+file your agent loads automatically, you are done.
 
 `cases/` is deliberately not loaded by your agent. It is several times the size
 of the block and grows with every contribution, and an agent carrying the whole
 catalogue of worked examples of *this is over-defense* starts matching real
 findings against them and dismissing the ones that rhyme — the exact failure this
 contract exists to prevent. The six one-line shapes inside the block are as much
-of the catalogue as belongs in a file read on every turn.
+of the catalogue as belongs in a file loaded into every session.
 
 The catalogue is for you, afterwards: when your agent insists some hardening is
 necessary and you think it is not, quote the entry by ID and ask how its proposal
@@ -283,6 +283,17 @@ So this block cannot rescue a config that specifies heavy process elsewhere. If
 your project genuinely needs freezes, audit chains or versioned artifacts, say
 *when* they apply and *what ends them*, with the same specificity you gave the
 workflow. An unbounded stage list beats any general preference, every time.
+
+**A long session can erode it even when nothing contradicts it.** Reported by the
+maintainer: runs that start proportionate drift back into fortifying as they get
+longer. Two different things can cause that, and they call for opposite
+responses. The block may still be present but have lost salience against
+thousands of tokens of tool output and in-session goals — repeating it helps
+there. Or earlier context may have been thinned during compaction — re-emitting
+it helps there too. Neither is the failure above: when a more specific
+instruction is *contradicting* the block, repeating the block only loses the same
+argument again, at the cost of the tokens. Work out which one you have before
+reaching for a fix; [`hosts/`](hosts/) has the escape hatch.
 
 **Model choice is also a lever.** Several reports describe switching to an
 earlier or different model and the problem simply going away. If a task is

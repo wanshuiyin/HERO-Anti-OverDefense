@@ -53,7 +53,7 @@
 
 ## 🚀 快速开始
 
-把下面这段粘进你的 agent **每一轮都会读**的那个文件——`CLAUDE.md`、`AGENTS.md`、`.github/copilot-instructions.md`、`.cursorrules`。完整对照表见 [`hosts/`](hosts/README.md)。
+把下面这段粘进你的 agent **会自动加载**的那个文件——`CLAUDE.md`、`AGENTS.md`、`.github/copilot-instructions.md`、`.cursorrules`。完整对照表见 [`hosts/`](hosts/README.md)。
 
 ```
 === 范围约束(约束你提议什么修法,不约束你找什么)===
@@ -100,7 +100,7 @@ grep -q '范围约束' CLAUDE.md 2>/dev/null || { printf '\n\n'; curl -sL \
 
 **装到这里就完了。** 没有任何配置项指向 [`cases/`](cases/README.md),也没有别的要配 —— 案例库**不会**被你的 agent 加载,[这是刻意的](cases/README.md#how-to-use-this)。它是**你**在 agent 坚持某个加固有必要时,按 ID 甩回去的东西。
 
-⚠️ **放在它每轮都会加载的地方。** "唤起才读"的那一份,你唤起的时候当然也管用——但恰恰在整夜无人值守的长跑里,没人替你唤起,而那正是这个毛病最贵的时候。
+⚠️ **放在它会自动加载的地方。** "唤起才读"的那一份,你唤起的时候当然也管用——但恰恰在整夜无人值守的长跑里,没人替你唤起,而那正是这个毛病最贵的时候。
 
 ---
 
@@ -189,7 +189,7 @@ grep -q '范围约束' CLAUDE.md 2>/dev/null || { printf '\n\n'; curl -sL \
 **Claude Code · Codex · Antigravity · Cursor · GitHub Copilot · Windsurf · Gemini CLI**
 —— 以及任何"不用你喊、自己就会加载配置文件"的 agent。
 
-没有东西要安装,也没有版本要跟。这个块就是一段纯文本,放进你的 agent 每轮都会读的那个文件里就行 —— 所以哪怕是这份名单上没有的 host,用法也一样。Codex 和 Antigravity 读的是同一个 `AGENTS.md`,一份文件两边通用。每个 host 具体读哪个文件名、块该放在文件里的什么位置,见 [`hosts/`](hosts/README.md)。
+没有东西要安装,也没有版本要跟。这个块就是一段纯文本,放进你的 agent 会自动加载的那个文件里就行 —— 所以哪怕是这份名单上没有的 host,用法也一样。Codex 和 Antigravity 读的是同一个 `AGENTS.md`,一份文件两边通用。每个 host 具体读哪个文件名、块该放在文件里的什么位置,见 [`hosts/`](hosts/README.md)。
 
 如果你还跑了第二个模型当审阅者,**更要给它一份** —— 一个被要求"对抗性审阅"、拿到仓库访问权、还被要求提修法的 reviewer,是本案例库里这些行为最高产的来源。
 

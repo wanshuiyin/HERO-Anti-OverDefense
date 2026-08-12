@@ -69,7 +69,7 @@ about `HERO-R`.
 
 ## 🚀 Quickstart
 
-Paste this into the file your agent already reads on every turn — `CLAUDE.md`,
+Paste this into the file your agent loads automatically — `CLAUDE.md`,
 `AGENTS.md`, `.github/copilot-instructions.md`, `.cursorrules`. See
 [`hosts/`](hosts/README.md) for the full table.
 
@@ -275,7 +275,7 @@ not who hit it.
 — and anything else that loads a config file without being asked.
 
 There is nothing to install and no version to track. The block is plain text in
-whichever file your agent already reads on every turn, so a host this list has
+whichever file your agent loads without being asked, so a host this list has
 never heard of works the same way. Codex and Antigravity both read `AGENTS.md`,
 so one file serves both. See [`hosts/`](hosts/README.md) for the exact filename
 each one loads and where to put the block inside it.
