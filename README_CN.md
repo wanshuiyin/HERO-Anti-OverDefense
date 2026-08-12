@@ -41,14 +41,14 @@
 
 ## 📢 更新记录
 
-这里出现一条,意味着**有什么改变了你该做的事**:块变了、你粘出去那份已过期;新增了 case、你多了一样可以引用的东西;或者我们给某个局限命了名、你在动手绕过它之前该先知道。改措辞、调排版、换图都不算。什么都记的话,真正重要的信号就被噪音淹了——而那正是 `HERO-R`,发生在一个讲 `HERO-R` 的仓库里。
+只记会改变你该做什么的事。改措辞、调排版不记——什么都记的话,真正要紧的那一行就被埋了。
 
-- **2026-08-12** — ![LIMITATION](https://img.shields.io/badge/LIMITATION-B45309?style=flat-square) ⏳ **长 session 会侵蚀这个块,即使没有任何东西跟它冲突。** 起因是有人问:能不能给 HERO 配个定时任务,每小时重读一次块。结论是不该配 —— 但这个问题暴露出我们只写了一种漂移机制,实际有三种,而且对策相反:**被更具体的指令压过**(重复注入没用)、**长 transcript 里显著性衰减**(重复有用)、**压缩时被稀释**(重新注入有用)。现在是 [RULES.md 里一条有名字的局限](RULES.md#what-this-does-not-do),逃生口写在 [`hosts/`](hosts/README.md) —— 只有散文,不装任何东西。另外**定时器本身就是错的形状**:上下文是随工作量涨的,不是随分钟涨的。顺带修正了一句我们到处在说的错话 —— host 是把配置文件**自动加载进 session**,不是每一轮重读一次。
-- **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 📓 **来自量化研究长跑的两条 case**([#1](https://github.com/wanshuiyin/HERO-Anti-OverDefense/pull/1),感谢 [@leisurexhx](https://github.com/leisurexhx))。`HERO-R-006` —— 审计循环把它要审计的那个实验挤掉了;`HERO-O-005` —— 每一次可恢复的工程失败都长出一棵永久版本树。附一份带事件日志证据的[匿名案例研究](cases/quant-research-audit-loop.md),以及 [`examples/`](examples/) 的第一条。**就算不看 case 也值得读的一句**:一句笼统的"只做必要的检查",输给了写在**同一个 prompt 里**的十二阶段流程。具体压过笼统 —— 现在是 [RULES.md](RULES.md#what-this-does-not-do) 里一条有名字的局限。
-- **2026-08-11** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🧱 **块新增了规则 6、八个例子和一个精简版。** 规则 6 明确:用户或项目**明确要求**的安全、迁移、校验、审阅不受这些限制约束——没有它,agent 完全可能搬出规则 3 去驳回一个刚刚点名要迁移路径的用户。六条一行的形状负责校准四个族,另有两条标 `✓` 的反例写着**这些要报**,这样块就不再是"发六个驳回模板、零个上报样本"。另有[精简版](RULES.md#the-short-version),去掉例子,约一半体积。
-- **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 🧱 **HERO 发布** —— 四个族、可粘贴的块,以及从 ARIS 里剥出来的 16 条行为案例。
+- **2026-08-12** — ![LIMITATION](https://img.shields.io/badge/LIMITATION-B45309?style=flat-square) ⏳ **跑久了块会失效。** 三种原因,对策不一样:被更具体的指令压过(重复没用)、还在但被几小时的输出淹了(重复有用)、压缩时被稀释(重新注入有用)。别配每小时的定时器——上下文是随工作量涨的,不是随分钟涨的。[怎么判断是哪种](RULES.md#what-this-does-not-do) · [hook 路子](hosts/README.md)。
+- **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 📓 **两条来自量化研究长跑的 case**([#1](https://github.com/wanshuiyin/HERO-Anti-OverDefense/pull/1),感谢 [@leisurexhx](https://github.com/leisurexhx))。`HERO-R-006` —— 审计循环把它要审计的实验吃掉了;`HERO-O-005` —— 每次可恢复的失败都长一棵永久版本树。最值钱的一句话不在这两条里:一句笼统的"只做必要的检查",输给了写在**同一个 prompt** 里的十二阶段流程。
+- **2026-08-11** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🧱 **块变了,重新粘一遍。** 新增规则 6:你自己要求的安全和迁移工作,这套规则永远不会拦。新增八个例子,其中两条标 `✓`,意思是**这种要报,别驳回**。另有[精简版](RULES.md#the-short-version),一半体积。
+- **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 🧱 **HERO 发布。**
 
-> ⚠️ **如果你在上面这些条目之前粘过块,你手上那份已经过期了。** 一条命令的安装**修不了**它 —— 那个防止重复追加的 guard,同时也拦住了它替换已有内容。请先删掉旧的 `=== 范围约束…===` 那一段,再重新跑一次命令。
+> ⚠️ **在上面这些之前粘过块?你那份是旧的。** 安装命令修不了——防重复追加的 guard 同时也拦住了替换。删掉旧的 `=== 范围约束…===` 那段,重跑一次。
 
 ---
 

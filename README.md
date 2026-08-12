@@ -50,22 +50,17 @@ nothing to install.
 
 ## 📢 What's changed
 
-An entry here means **something changed what you should do**: the block changed
-and your pasted copy is stale, a new case gave you something to quote, or we
-named a limitation you should know about before you try to work around it.
-Rewording, layout and images do not qualify. If everything got logged, the
-signals that matter would be buried in the noise, which is `HERO-R` in the
-repository about `HERO-R`.
+Only things that change what you should do. Not rewording, not layout — a
+changelog of everything buries the one line that mattered.
 
-- **2026-08-12** — ![LIMITATION](https://img.shields.io/badge/LIMITATION-B45309?style=flat-square) ⏳ **Long sessions can erode the block even when nothing contradicts it.** Asked whether HERO should ship a scheduled task that re-reads the block every hour. It should not — but the question exposed that we had documented only one drift mechanism when there are three, and they want opposite responses: a *contradicting* instruction (repetition is useless), salience lost in a long transcript (repetition helps), and thinning during compaction (re-emitting helps). Now [a named limitation](RULES.md#what-this-does-not-do), with the optional hook route in [`hosts/`](hosts/README.md) — prose only, nothing to install. A wall-clock timer is the wrong shape either way: context grows with work, not with minutes. Also corrected a claim we had been repeating everywhere — hosts load your config file into the session automatically, they do not re-read it on every turn.
-- **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 📓 **Two cases from long-running quantitative research** ([#1](https://github.com/wanshuiyin/HERO-Anti-OverDefense/pull/1), thanks [@leisurexhx](https://github.com/leisurexhx)). `HERO-R-006` — audit loops that displaced the experiment they were auditing. `HERO-O-005` — a permanent version tree for every recoverable engineering failure. With an [anonymised case study](cases/quant-research-audit-loop.md) carrying event-log evidence, and the first [`examples/`](examples/) entry. The observation worth reading even if you skip the cases: a general "use only the checks you need" lost to a twelve-stage workflow written into the *same prompt*. Specific beats general — now a named limitation in [RULES.md](RULES.md#what-this-does-not-do).
-- **2026-08-11** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🧱 **The block gained rule 6, eight worked examples, and a short variant.** Rule 6 says none of this overrides security, migration, verification or review the user or the project explicitly asked for — without it an agent could cite rule 3 at someone who had just requested a migration path. Six one-line shapes now calibrate the four families, and two counterexamples marked `✓` say *report these*, so the block no longer hands out six templates for dismissal and none for reporting. A [short version](RULES.md#the-short-version) drops the examples at about half the size.
-- **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 🧱 **HERO published** — the four families, the paste-in block, and 16 catalogued behaviours extracted from ARIS.
+- **2026-08-12** — ![LIMITATION](https://img.shields.io/badge/LIMITATION-B45309?style=flat-square) ⏳ **The block fades on long runs.** Three causes, different answers: something more specific is contradicting it (repeating won't help), it is still there but buried under hours of output (repeating helps), or compaction thinned it (re-emitting helps). Don't set an hourly timer — context grows with work, not with minutes. [How to tell which](RULES.md#what-this-does-not-do) · [hook route](hosts/README.md).
+- **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 📓 **Two cases from long-running quant research** ([#1](https://github.com/wanshuiyin/HERO-Anti-OverDefense/pull/1), thanks [@leisurexhx](https://github.com/leisurexhx)). `HERO-R-006` — audit loops that ate the experiment they were auditing. `HERO-O-005` — a permanent version tree for every recoverable failure. The best line is in neither: a general "only do the checks you need" lost to a twelve-stage workflow in the *same prompt*.
+- **2026-08-11** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🧱 **The block changed — re-paste it.** New rule 6: this never overrides security or migration work you actually asked for. Eight examples added, two of them marked `✓` meaning *report this, don't dismiss it*. There is also a [short version](RULES.md#the-short-version) at half the size.
+- **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 🧱 **HERO published.**
 
-> ⚠️ **If you pasted the block before the entries above, your copy is stale.** The
-> one-command install will not fix it — the guard that stops it appending twice
-> also stops it replacing what is already there. Delete your old
-> `=== SCOPE LIMITS ... ===` section and run the command again.
+> ⚠️ **Pasted the block before any of the above? Yours is stale.** The install
+> command won't fix it — the guard that stops it appending twice also stops it
+> replacing. Delete your old `=== SCOPE LIMITS ... ===` section and run it again.
 
 ---
 
