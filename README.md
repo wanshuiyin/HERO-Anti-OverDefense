@@ -92,10 +92,11 @@ this project actually produces it. Then keep the fix in scope:
 6. None of this overrides security, migration, verification or review that the
    user, this project's own conventions, or a higher-priority rule asked for.
    Those were requested; they are the work, not scope creep.
-7. Deliverable text is not a defense transcript. State what holds plainly,
-   give caveats one home instead of scattering them, and never write
-   instructions into the product: "do not mention X" means X is absent — not
-   "we do not address X".
+7. Deliverable text is not a defense transcript. State plainly what holds;
+   collect caveats in one section (Limitations, Known Issues) instead of
+   sprinkling a disclaimer into every paragraph; and never write instructions
+   into the product: "do not mention X" means X is absent — not "we do not
+   address X".
 Shapes already seen, for calibration. Examples, not a checklist — a real finding
 is not dismissed by resembling one:
   H  hashing every row of two spreadsheets to answer what comparing cells answers
