@@ -43,7 +43,7 @@
 
 只记会改变你该做什么的事。改措辞、调排版不记——什么都记的话,真正要紧的那一行就被埋了。
 
-- **2026-08-26** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) ✍️ **块新增规则 7,案例库新增两条旁支:防御性文字。** 同一个"怕被追责"的病根,长在交付物的文字里——每段都撒 caveat,写到最后整篇像道歉信(`SIB-003`);以及把指令忏悔进成品:叫它"别提 X",它写"我们不讨论 X",或者把改动标题写成"(无 X)"(`SIB-004`)。规则 7:交付物不是答辩记录——注意事项集中放一处,「别提 X」意味着 X 不存在。提炼自一条真实科研写作流水线的修复:它产的论文已经变成了忏悔书。
+- **2026-08-26** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) ✍️ **规则 7,外加两条新旁支:防御性文字。** 每段撒 caveat,整篇写成道歉信(`SIB-003`);指令忏悔进成品——叫它"别提 X",它写"我们不讨论 X"(`SIB-004`)。规则 7:交付物不是答辩记录。提炼自一条真实写作流水线的修复:它产的论文已经变成了忏悔书。
 - **2026-08-12** — ![LIMITATION](https://img.shields.io/badge/LIMITATION-B45309?style=flat-square) ⏳ **跑久了块会失效。** 三种原因,对策不一样:被更具体的指令压过(重复没用)、还在但被几小时的输出淹了(重复有用)、压缩时被稀释(重新注入有用)。别配每小时的定时器——上下文是随工作量涨的,不是随分钟涨的。[怎么判断是哪种](RULES.md#what-this-does-not-do) · [hook 路子](hosts/README.md)。
 - **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 📓 **两条来自量化研究长跑的 case**([#1](https://github.com/wanshuiyin/HERO-Anti-OverDefense/pull/1),感谢 [@leisurexhx](https://github.com/leisurexhx))。`HERO-R-006` —— 审计循环把它要审计的实验吃掉了;`HERO-O-005` —— 每次可恢复的失败都长一棵永久版本树。最值钱的一句话不在这两条里:一句笼统的"只做必要的检查",输给了写在**同一个 prompt** 里的十二阶段流程。
 - **2026-08-11** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🧱 **块变了,重新粘一遍。** 新增规则 6:你自己要求的安全和迁移工作,这套规则永远不会拦。新增八个例子,其中两条标 `✓`,意思是**这种要报,别驳回**。另有[精简版](RULES.md#the-short-version),一半体积。
