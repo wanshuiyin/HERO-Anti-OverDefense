@@ -53,6 +53,7 @@ nothing to install.
 Only things that change what you should do. Not rewording, not layout — a
 changelog of everything buries the one line that mattered.
 
+- **2026-08-26** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) ✍️ **The block gained rule 7, and the catalogue two siblings: defensive prose.** The same not-being-blamed root, expressed in deliverable text — caveats scattered through every paragraph until the work reads as an apology (`SIB-003`), and drafting instructions confessed into the product: told "do not mention X", the agent writes "we do not address X", or titles the change "(without X)" (`SIB-004`). Rule 7: deliverable text is not a defense transcript — caveats get one home, and "do not mention X" means X is absent. Distilled from fixing a real research-writing pipeline whose papers had turned into confession letters.
 - **2026-08-12** — ![LIMITATION](https://img.shields.io/badge/LIMITATION-B45309?style=flat-square) ⏳ **The block fades on long runs.** Three causes, different answers: something more specific is contradicting it (repeating won't help), it is still there but buried under hours of output (repeating helps), or compaction thinned it (re-emitting helps). Don't set an hourly timer — context grows with work, not with minutes. [How to tell which](RULES.md#what-this-does-not-do) · [hook route](hosts/README.md).
 - **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 📓 **Two cases from long-running quant research** ([#1](https://github.com/wanshuiyin/HERO-Anti-OverDefense/pull/1), thanks [@leisurexhx](https://github.com/leisurexhx)). `HERO-R-006` — audit loops that ate the experiment they were auditing. `HERO-O-005` — a permanent version tree for every recoverable failure. The best line is in neither: a general "only do the checks you need" lost to a twelve-stage workflow in the *same prompt*.
 - **2026-08-11** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🧱 **The block changed — re-paste it.** New rule 6: this never overrides security or migration work you actually asked for. Eight examples added, two of them marked `✓` meaning *report this, don't dismiss it*. There is also a [short version](RULES.md#the-short-version) at half the size.
@@ -91,6 +92,10 @@ this project actually produces it. Then keep the fix in scope:
 6. None of this overrides security, migration, verification or review that the
    user, this project's own conventions, or a higher-priority rule asked for.
    Those were requested; they are the work, not scope creep.
+7. Deliverable text is not a defense transcript. State what holds plainly,
+   give caveats one home instead of scattering them, and never write
+   instructions into the product: "do not mention X" means X is absent — not
+   "we do not address X".
 Shapes already seen, for calibration. Examples, not a checklist — a real finding
 is not dismissed by resembling one:
   H  hashing every row of two spreadsheets to answer what comparing cells answers

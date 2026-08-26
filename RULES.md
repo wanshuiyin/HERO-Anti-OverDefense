@@ -51,10 +51,15 @@ direction; say it went slightly east and it relocates to the Atlantic. Also:
 answering the question the prompt's phrasing implied rather than the question
 asked.
 
-It fits the same hypothesis — optimising for not being blamed — but it is a
-different symptom, and none of the four letters covers it. It is catalogued here
-as a sibling, not folded in. Blurring the taxonomy is how a case catalogue stops
-being useful.
+**Defensive prose.** The same root, expressed in deliverable text: caveats
+scattered through every paragraph, every weakness confessed at every mention,
+and drafting instructions leaking into the artifact ("do not mention X"
+becomes "we do not address X"). Catalogued as `SIB-003` and `SIB-004`.
+
+Both fit the same hypothesis — optimising for not being blamed — but they are
+different symptoms, and none of the four letters covers them. They are
+catalogued as siblings, not folded in. Blurring the taxonomy is how a case
+catalogue stops being useful.
 
 ---
 
@@ -83,6 +88,10 @@ this project actually produces it. Then keep the fix in scope:
 6. None of this overrides security, migration, verification or review that the
    user, this project's own conventions, or a higher-priority rule asked for.
    Those were requested; they are the work, not scope creep.
+7. Deliverable text is not a defense transcript. State what holds plainly,
+   give caveats one home instead of scattering them, and never write
+   instructions into the product: "do not mention X" means X is absent — not
+   "we do not address X".
 Shapes already seen, for calibration. Examples, not a checklist — a real finding
 is not dismissed by resembling one:
   H  hashing every row of two spreadsheets to answer what comparing cells answers
@@ -115,6 +124,8 @@ Chinese, same text:
 5. 该判断的地方就判断,不要换成评分表、检查清单,或对已经定论的东西再跑一遍校验。
 6. 以上都不覆盖用户、本项目自己的约定、或更高优先级规则明确要求的安全、迁移、校验与
    审阅。那些是被要求的,是活儿本身,不算范围外。
+7. 交付物的文字不是答辩记录。成立的就直说;注意事项集中放一处,不要散布;
+   更不要把指令写进成品:「别提 X」意味着 X 不存在,而不是写一句「我们不讨论 X」。
 已经见过的形状,供你校准。是例子不是清单——一个真问题不会因为"长得像其中一条"就被驳回:
   H  为了比对两个表格的差异,给每一行都算哈希——直接比单元格就能回答
   H  写下一堆校验和文件,而没有任何代码会去读它们
@@ -134,7 +145,7 @@ Chinese, same text:
 
 ## The short version
 
-Same six rules, no worked examples — roughly half the size. Use it when your
+Same seven rules, no worked examples — roughly half the size. Use it when your
 config file is already crowded, or when you want the rules without the shapes.
 The examples are the part that does the calibrating, so prefer the full block if
 you have the room.
@@ -162,6 +173,8 @@ really produces. Then keep the fix in scope:
    re-run of something already settled.
 6. None of this overrides security, migration, verification or review that the
    user, this project's conventions, or a higher-priority rule asked for.
+7. Deliverable text is not a defense transcript: caveats get one home, and
+   "do not mention X" means X is absent — never "we do not address X".
 Before any check: what specific failure would this detect, and what would I do
 differently if it occurred? No answer means do not run it.
 Say plainly when something is correct. Do not manufacture findings.
@@ -181,6 +194,7 @@ Chinese, same text:
    可达即可,"理论上构造得出"不算。
 5. 该判断的地方就判断,不要换成评分表、检查清单,或对已定论的东西再跑一遍。
 6. 以上都不覆盖用户、本项目约定、或更高优先级规则明确要求的安全、迁移、校验与审阅。
+7. 交付物不是答辩记录:注意事项集中放一处;「别提 X」= X 不存在,不是写「我们不讨论 X」。
 跑任何检查前先回答:会检测出什么具体的失败?真出现了我会做什么不同的事?答不上来就别跑。
 对的就说对。不要为了交差硬找问题。
 ```

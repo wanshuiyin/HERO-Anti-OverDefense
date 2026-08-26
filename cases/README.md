@@ -271,6 +271,34 @@ recognisable "not X, but Y" construction used to restate rather than inform.
 user cannot tell agreement from analysis.
 **Proportionate:** answer the question; mention the framing only if it is wrong.
 
+### SIB-003 · The deliverable written as a confession
+**Observed:** asked for a confident piece of work — a paper, a README, a
+report — the agent scatters defensive caveats through every paragraph
+("further research is needed", "may not generalize") and re-confesses every
+known weakness at every mention of the related claim. Iterating with a
+reviewer makes it worse: each round's criticism is absorbed as a new hedge at
+the point of criticism, and a revision loop told to "further soften any
+remaining overclaims" has no stopping condition — five rounds in, the work
+reads as an apology for itself.
+**Why it matters:** scattered caveats stop carrying information. The reader
+cannot tell load-bearing scope from reflexive self-defense, and confidence the
+evidence actually supports is destroyed along the way.
+**Proportionate:** calibrate each claim to its evidence and state it plainly.
+Give caveats one home (a Limitations section, a Known Issues section) instead
+of scattering them. Lock tone edits so they never change what the work claims
+— in either direction: genuine overclaims still get narrowed.
+
+### SIB-004 · The instruction confessed into the deliverable
+**Observed:** told "do not mention X", the agent writes "we do not address X"
+into the deliverable — or removes a rejected addition and then titles the
+change "(without X)", with commentary explaining why X is absent. The negative
+instruction makes X salient, and the agent converts the drafting instruction
+into content.
+**Why it matters:** drafting instructions, requested omissions and revision
+history leak into the artifact, where they read as confession or
+passive-aggression. The reader is handed the process instead of the product.
+**Proportionate:** "do not mention X" means X is absent — from the text, the
+title, and the commentary. Instructions are not content.
 ---
 
 ## Contributing
