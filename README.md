@@ -133,7 +133,7 @@ file, no overwrite — so the worst it can do to a file you already have is add 
 block at the end.
 
 **Too long for your config?** There is a [short version](RULES.md#the-short-version)
-— same six rules, no worked examples, about half the size. The examples are what
+— same seven rules, no worked examples, about half the size. The examples are what
 does the calibrating, so take the full block if you have the room.
 
 **That is the whole install.** There is no setting that points at
