@@ -43,7 +43,7 @@
 
 只记会改变你该做什么的事。改措辞、调排版不记——什么都记的话,真正要紧的那一行就被埋了。
 
-- **2026-09-03** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 📣 **规则 7 加入发布会原则,重新粘一遍。** 论文是发布会,不是工作汇报:围绕最强结果组织,不占优的数字解释为取舍而不是认输,数字照样留在表里。采自 [anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill)([@Adkid-Zephyr](https://github.com/Adkid-Zephyr)),那边有面向论文的完整版。
+- **2026-09-03** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 📣 **规则 7 加入发布会原则,重新粘一遍。** 论文是发布会,不是工作汇报:围绕最强结果组织;不占优的数字是取舍就说成取舍,不是就平实陈述,都不写成认输,数字照样留在表里。采自 [anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill)([@Adkid-Zephyr](https://github.com/Adkid-Zephyr)),那边有面向论文的完整版。
 - **2026-09-02** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🏃 **块变了,重新粘一遍。** 新增规则 8:推进本身是交付的一部分——方案都合理就选一个写明取舍,别停下来发选择题。规则 7 补上过程痕迹:中间报错、废方案、AI 署名和模型腔都不是内容,新增规则 9 完整写明。两条都提炼自一位 ML 研究者的实际配置,[原件](examples/ml-research-daily-driver.zh-CN.md)收进 `examples/`。新命名一条旁支:停摆(stalling)。
 - **2026-08-26** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) ✍️ **规则 7,外加两条新旁支:防御性文字。** 每段撒 caveat,整篇写成道歉信(`SIB-003`);指令忏悔进成品——叫它"别提 X",它写"我们不讨论 X"(`SIB-004`)。规则 7:交付物不是答辩记录。提炼自一条真实写作流水线的修复:它产的论文已经变成了忏悔书。
 - **2026-08-12** — ![LIMITATION](https://img.shields.io/badge/LIMITATION-B45309?style=flat-square) ⏳ **跑久了块会失效。** 三种原因,对策不一样:被更具体的指令压过(重复没用)、还在但被几小时的输出淹了(重复有用)、压缩时被稀释(重新注入有用)。别配每小时的定时器——上下文是随工作量涨的,不是随分钟涨的。[怎么判断是哪种](RULES.md#what-this-does-not-do) · [hook 路子](hosts/README.md)。
@@ -77,7 +77,8 @@
    (Limitations、已知问题),别在每段末尾都缀一句免责;更不要把指令**或过程**
    写进成品:「别提 X」意味着 X 不存在(不是写「我们不讨论 X」);中间报错、
    被放弃的方案、改稿痕迹同样不是内容。围绕最强的结果组织——论文是发布会,
-   不是工作汇报——不占优的数字解释为取舍,不写成认输;数字本身照样留在表里。
+   不是工作汇报。不占优的数字,是取舍就说成取舍,不是就平实陈述,都不写成认输;
+   数字本身照样留在表里。
 8. 推进本身是交付的一部分。几个方案都合理时,选一个并写明取舍——只有分歧
    真的大、或选错难回头时才升级为提问。不挡住目标的细节,记下来接着走,
    不是先停下解决它。为了不选错而停在原地,本身就是选错。

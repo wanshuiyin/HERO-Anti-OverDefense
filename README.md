@@ -53,7 +53,7 @@ nothing to install.
 Only things that change what you should do. Not rewording, not layout — a
 changelog of everything buries the one line that mattered.
 
-- **2026-09-03** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 📣 **Rule 7 gains the press-release principle — re-paste it.** A paper is a launch, not a progress report: lead with the strongest result, explain an unfavorable number as a tradeoff instead of narrating a defeat, and keep the number in the table. Adopted from [anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill) by [@Adkid-Zephyr](https://github.com/Adkid-Zephyr), which works the principle out in full for papers.
+- **2026-09-03** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 📣 **Rule 7 gains the press-release principle — re-paste it.** A paper is a launch, not a progress report: lead with the strongest result; an unfavorable number that is a tradeoff is explained as one, one that is not is stated plainly, and either way it stays in the table — never narrated as a defeat. Adopted from [anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill) by [@Adkid-Zephyr](https://github.com/Adkid-Zephyr), which works the principle out in full for papers.
 - **2026-09-02** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🏃 **The block changed — re-paste it.** Rule 8: momentum is part of the deliverable — when several options are reasonable, pick one and note the tradeoff instead of handing back a menu. Rule 7 now also bans process traces: intermediate errors, abandoned approaches and AI-assistance markers are not content; rule 9 spells that out in full. Both distilled from a working ML researcher's config — the [original](examples/ml-research-daily-driver.zh-CN.md) is in `examples/`. New sibling named: stalling.
 - **2026-08-26** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) ✍️ **Rule 7, plus two new siblings: defensive prose.** Caveats scattered through every paragraph until the work reads as an apology (`SIB-003`); instructions confessed into the product — told "do not mention X", it writes "we do not address X" (`SIB-004`). Rule 7: deliverable text is not a defense transcript. Distilled from repairing a writing pipeline whose papers had turned into confessions.
 - **2026-08-12** — ![LIMITATION](https://img.shields.io/badge/LIMITATION-B45309?style=flat-square) ⏳ **The block fades on long runs.** Three causes, different answers: something more specific is contradicting it (repeating won't help), it is still there but buried under hours of output (repeating helps), or compaction thinned it (re-emitting helps). Don't set an hourly timer — context grows with work, not with minutes. [How to tell which](RULES.md#what-this-does-not-do) · [hook route](hosts/README.md).
@@ -100,9 +100,10 @@ this project actually produces it. Then keep the fix in scope:
    into the product — nor the process: "do not mention X" means X is absent
    (not "we do not address X"), and intermediate errors, abandoned approaches
    and revision history are not content either. Lead with the strongest
-   result — a paper is a launch, not a progress report — and explain an
-   unfavorable number as a tradeoff rather than narrating a defeat; the
-   number itself stays in the table.
+   result — a paper is a launch, not a progress report. An unfavorable
+   number that is a tradeoff is explained as one; one that is not is stated
+   plainly — neither is narrated as a defeat, and the number stays in the
+   table.
 8. Momentum is part of the deliverable. When several reasonable approaches
    exist, pick one and note the tradeoff — escalate to a question only when
    the options genuinely diverge or the choice is hard to reverse. A detail

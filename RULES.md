@@ -102,9 +102,10 @@ this project actually produces it. Then keep the fix in scope:
    into the product — nor the process: "do not mention X" means X is absent
    (not "we do not address X"), and intermediate errors, abandoned approaches
    and revision history are not content either. Lead with the strongest
-   result — a paper is a launch, not a progress report — and explain an
-   unfavorable number as a tradeoff rather than narrating a defeat; the
-   number itself stays in the table.
+   result — a paper is a launch, not a progress report. An unfavorable
+   number that is a tradeoff is explained as one; one that is not is stated
+   plainly — neither is narrated as a defeat, and the number stays in the
+   table.
 8. Momentum is part of the deliverable. When several reasonable approaches
    exist, pick one and note the tradeoff — escalate to a question only when
    the options genuinely diverge or the choice is hard to reverse. A detail
@@ -155,7 +156,8 @@ Chinese, same text:
    (Limitations、已知问题),别在每段末尾都缀一句免责;更不要把指令**或过程**
    写进成品:「别提 X」意味着 X 不存在(不是写「我们不讨论 X」);中间报错、
    被放弃的方案、改稿痕迹同样不是内容。围绕最强的结果组织——论文是发布会,
-   不是工作汇报——不占优的数字解释为取舍,不写成认输;数字本身照样留在表里。
+   不是工作汇报。不占优的数字,是取舍就说成取舍,不是就平实陈述,都不写成认输;
+   数字本身照样留在表里。
 8. 推进本身是交付的一部分。几个方案都合理时,选一个并写明取舍——只有分歧
    真的大、或选错难回头时才升级为提问。不挡住目标的细节,记下来接着走,
    不是先停下解决它。为了不选错而停在原地,本身就是选错。
