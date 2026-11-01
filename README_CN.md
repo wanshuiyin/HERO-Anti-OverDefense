@@ -22,7 +22,7 @@
 
 这些形状看起来像是:agent 在优化**不被追责**,而不是**活儿干得好**——这是一个能解释观察的**假说**,不是关于这些模型怎么训出来的定论。但不管病根是什么,形状是真的,而且就是四种——**H**ashing(哈希)、**E**dge cases(边界情况)、**R**ubrics(把判断换成机械)、**O**verbuild(过度建设),四个首字母拼起来就是 **HERO**。给它们起了名字,你就能说"刚才犯的是哪一种",而不是空对空地争"是不是有点过了"。
 
-这个仓库 = 一段粘进 agent 配置的短文本 + 一份它要制止的行为案例库。**Claude Code、Codex、Antigravity、Cursor、GitHub Copilot、Windsurf、Gemini CLI** 都能用——任何"不用你喊、自己就会加载配置文件"的 agent 都能用。没有东西要安装。
+这个仓库 = 一段粘进 agent 配置的短文本 + 一份它要制止的行为案例库。**Claude Code、Codex、Antigravity、Cursor、GitHub Copilot、Windsurf、Gemini CLI** 都能用——任何"不用你喊、自己就会加载配置文件"的 agent 都能用。这套规则无需安装；长时间运行 Codex Goal 时，还可单独安装 [Goal Pulse 技能与提醒器](skills/goal-pulse/README.md)。
 
 > 🧬 *从 [ARIS](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep)(~13.7k★)里泛化出来。它的跨模型审阅器确实好用——但也把可观的一部分产出花在了提议"加个没人读的哈希"上。HERO 留下价值,去掉税。*
 
@@ -35,6 +35,7 @@
 | **[`RULES.md`](RULES.md)** | 契约本体(中英各一份),以及三处真正不好划的边界。 |
 | **[`cases/`](cases/README.md)** | 观察到的行为:要求是什么、agent 做了什么、为什么不成比例、正确该怎样。**这份不粘进配置**——它是 agent 跟你争的时候,你甩回去的东西。 |
 | **[`hosts/`](hosts/README.md)** | 粘到哪儿——Claude Code、Codex、Antigravity、Copilot、Cursor、Windsurf、Gemini CLI。 |
+| **[`Goal Pulse`](skills/goal-pulse/README.md)** | 可选的 Codex 技能与定时器：及时回收完整产物、接管反复卡点，默认每 30 分钟提醒已有的活跃 Goal。 |
 | **[`examples/`](examples/)** | 可选,不属于 HERO 本体。贡献者为**自己项目**写的真实 `AGENTS.md` / `CLAUDE.md`,分享出来给你看他们是怎么把这套思路落到自己领域的。**不是** HERO 的变体,也不是[精简版](RULES.md#the-short-version)——里面的阈值是他们项目的。学写法,别照抄文件。 |
 
 ---
@@ -43,6 +44,7 @@
 
 只记会改变你该做什么的事。改措辞、调排版不记——什么都记的话,真正要紧的那一行就被埋了。
 
+- **2026-11-01** — **Codex Goal Pulse。** 新增可选的[技能与本地提醒器](skills/goal-pulse/README.md)，提醒已有的活跃 Goal 及时回收产物、处理反复卡点。默认每 30 分钟发送中英双语提醒，Goal 暂停时静默；HERO 核心规则不变。
 - **2026-09-03** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 📣 **规则 7 加入发布会原则,重新粘一遍。** 论文是发布会,不是工作汇报:围绕最强结果组织;不占优的数字是取舍就说成取舍,不是就平实陈述,都不写成认输,数字照样留在表里。采自 [anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill)([@Adkid-Zephyr](https://github.com/Adkid-Zephyr)),那边有面向论文的完整版。
 - **2026-09-02** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🏃 **块变了,重新粘一遍。** 新增规则 8:推进本身是交付的一部分——方案都合理就选一个写明取舍,别停下来发选择题。规则 7 补上过程痕迹:中间报错、废方案、AI 署名和模型腔都不是内容,新增规则 9 完整写明。两条都提炼自一位 ML 研究者的实际配置,[原件](examples/ml-research-daily-driver.zh-CN.md)收进 `examples/`。新命名一条旁支:停摆(stalling)。
 - **2026-08-26** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) ✍️ **规则 7,外加两条新旁支:防御性文字。** 每段撒 caveat,整篇写成道歉信(`SIB-003`);指令忏悔进成品——叫它"别提 X",它写"我们不讨论 X"(`SIB-004`)。规则 7:交付物不是答辩记录。提炼自一条真实写作流水线的修复:它产的论文已经变成了忏悔书。
@@ -208,7 +210,7 @@ grep -q '范围约束' CLAUDE.md 2>/dev/null || { printf '\n\n'; curl -sL \
 **Claude Code · Codex · Antigravity · Cursor · GitHub Copilot · Windsurf · Gemini CLI**
 —— 以及任何"不用你喊、自己就会加载配置文件"的 agent。
 
-没有东西要安装,也没有版本要跟。这个块就是一段纯文本,放进你的 agent 会自动加载的那个文件里就行 —— 所以哪怕是这份名单上没有的 host,用法也一样。Codex 和 Antigravity 读的是同一个 `AGENTS.md`,一份文件两边通用。每个 host 具体读哪个文件名、块该放在文件里的什么位置,见 [`hosts/`](hosts/README.md)。
+核心规则无需安装,也不依赖运行时版本。这个块就是一段纯文本,放进你的 agent 会自动加载的那个文件里就行 —— 所以哪怕是这份名单上没有的 host,用法也一样。Codex 和 Antigravity 读的是同一个 `AGENTS.md`,一份文件两边通用。每个 host 具体读哪个文件名、块该放在文件里的什么位置,见 [`hosts/`](hosts/README.md)。
 
 如果你还跑了第二个模型当审阅者,**更要给它一份** —— 一个被要求"对抗性审阅"、拿到仓库访问权、还被要求提修法的 reviewer,是本案例库里这些行为最高产的来源。
 

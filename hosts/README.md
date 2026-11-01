@@ -52,13 +52,26 @@ the current references — [Claude Code hooks](https://code.claude.com/docs/en/h
 [Codex hooks](https://learn.chatgpt.com/docs/hooks) — rather than trusting a
 snippet. Not every event can inject; some only observe or block.
 
-**A wall-clock timer is the wrong shape for this**, even where one is available.
+**A wall-clock timer is the wrong shape for re-injecting the full block**, even where one is available.
 Context grows with work, not with minutes: a busy run can bury the block in ten
 minutes while an idle one sits untouched for hours. Fire on session events, not
 on the hour.
 
-This is optional host configuration. It is not part of installing HERO, nothing
-here ships it, and the repository stays plain text.
+This hook setup is optional host configuration, separate from installing the
+core rules.
+
+## Optional execution reminders for Codex
+
+[Goal Pulse](../skills/goal-pulse/README.md) addresses a different long-run problem:
+finished worker outputs waiting for pickup, repeated attempts at the same blocker,
+and reports replacing execution. It sends a short action reminder every 30 minutes
+to an existing active Codex Goal turn, with no separate report expected.
+
+The timer requires a compatible local Codex app-server on macOS or Linux/POSIX.
+It stays silent while the Goal is paused or waiting for input, and stops when the
+Goal finishes or is replaced. It does not start a new turn or resume work. This is
+an optional tool with its own installation; the core HERO rules still need only
+the configuration block above.
 
 ## Placement inside the file
 
