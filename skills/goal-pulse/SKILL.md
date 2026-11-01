@@ -1,6 +1,6 @@
 ---
 name: goal-pulse
-description: Keep an existing long-running Codex Goal moving through timely artifact collection, stalled-worker takeover, and optional periodic reminders. Use when the user asks to prevent idle loops or schedule nudges in an existing Goal conversation.
+description: Enable Goal Pulse by default whenever the user starts or resumes a Codex Goal, or the main agent takes over an active Goal. Keep work moving with timely artifact collection, stalled-worker takeover, and bilingual reminders every 30 minutes.
 ---
 
 # Goal Pulse
@@ -18,9 +18,11 @@ Advance the current Goal at the fastest effective pace. Spend work on the delive
 
 Use the project's existing state files for essential breakpoints. Give normal progress updates and answer the user; do not write an extra acknowledgement or report just because a pulse arrived.
 
-## Optional Codex timer
+## Default activation for Codex Goals
 
-Start the timer when the user requests scheduled nudges for an explicitly identified existing Goal thread. Reading or installing this skill alone does not start it. Do not choose another conversation from its recent activity.
+Whenever the user starts or resumes a Goal, or the main agent takes over an active Goal, enable the timer for that thread by default. Do not wait for a separate `$goal-pulse` request or ask for confirmation. Start after the Goal exists; honor an explicit user request to disable reminders. Reading or installing this skill and ordinary chat do not create a Goal or start its timer. Only the main agent activates the Goal's watcher; workers do not start extra timers.
+
+Use the host's `CODEX_THREAD_ID`, which the helper reads by default. If the host supplies the thread ID another way, pass it with `--thread`. Never choose a conversation from recent activity. If the skill environment or dependency is missing, prepare it using the installation guide; report an actual setup blocker instead of silently treating reminders as enabled.
 
 The helper requires Python 3.10+, the adjacent `requirements.txt`, and a running local Codex app-server with the Goal API and Unix control socket. See [installation and commands](README.md). It uses POSIX facilities; this timer does not support native Windows or other agent hosts.
 
@@ -29,18 +31,20 @@ For a standard skill installation:
 ```sh
 pulse_dir="${CODEX_HOME:-$HOME/.codex}/skills/goal-pulse"
 "$pulse_dir/.venv/bin/python" "$pulse_dir/scripts/goal_pulse.py" start \
-  --thread <EXISTING_THREAD_UUID> --interval-minutes 30 --poll-seconds 60
+  --interval-minutes 30 --poll-seconds 60
 ```
+
+Check the start result: `started` or `already-running` for this Goal means the watcher is present. Repeated starts for the same Goal preserve its running settings. When a previous Goal's watcher is still exiting, start waits for it to release the thread before binding the new Goal; a timeout is a setup failure, not an enabled timer.
 
 The default reminder is bilingual, every 30 minutes. The 60-second poll reads metadata without model calls. `start --message-file /absolute/message.txt` saves a custom reminder; `tick --message-file` overrides the message for that invocation only.
 
 The helper binds to the Goal's creation timestamp and sends `turn/steer` with `expectedTurnId` only when that Goal is active, the thread is not waiting for user input or approval, and its current turn is in progress. Paused, blocked and budget-limited Goals stay silent. A completed, missing or replaced Goal ends the watcher. It never resumes a Goal or starts a new turn.
 
 ```sh
-"$pulse_dir/.venv/bin/python" "$pulse_dir/scripts/goal_pulse.py" status --thread <EXISTING_THREAD_UUID>
-"$pulse_dir/.venv/bin/python" "$pulse_dir/scripts/goal_pulse.py" stop --thread <EXISTING_THREAD_UUID>
+"$pulse_dir/.venv/bin/python" "$pulse_dir/scripts/goal_pulse.py" status
+"$pulse_dir/.venv/bin/python" "$pulse_dir/scripts/goal_pulse.py" stop
 # Read-only eligibility check; no reminder is sent.
-"$pulse_dir/.venv/bin/python" "$pulse_dir/scripts/goal_pulse.py" tick --thread <EXISTING_THREAD_UUID>
+"$pulse_dir/.venv/bin/python" "$pulse_dir/scripts/goal_pulse.py" tick
 ```
 
 State lives in `${CODEX_HOME:-~/.codex}/goal-pulse/<thread-id>/`. A file lock prevents duplicate watchers; an attempted send consumes the interval even if its acknowledgement is lost. On transport failure, inspect the reported error rather than using GUI typing or resume commands to force delivery.

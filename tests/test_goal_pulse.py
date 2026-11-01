@@ -1,6 +1,7 @@
 """Behavioral checks: no paid model calls and no real conversation writes."""
 import copy
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -8,6 +9,8 @@ import tempfile
 import threading
 import time
 import unittest
+from unittest import mock
+from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "skills/goal-pulse/scripts"))
 import goal_pulse as pulse
@@ -123,6 +126,20 @@ class DecisionTests(unittest.TestCase):
         self.assertEqual(state, {})
         self.assertFalse(rpc.sends())
 
+    def test_replacement_timeout_does_not_claim_watcher_started(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            pulse.write_json(directory / "config.json", {**CONFIG, "poll_seconds": .05})
+            rpc = mock.Mock()
+            rpc.call.return_value = {"goal": {"createdAt": 101, "status": "paused"}}
+            args = SimpleNamespace(socket="unused-mock-socket", thread=THREAD)
+            with pulse.lock(directory / "run.lock"), mock.patch.object(pulse, "CodexRPC", return_value=rpc):
+                with self.assertRaisesRegex(RuntimeError, "replacement timeout"):
+                    pulse.start(args, directory, replacement_deadline=0)
+            self.assertTrue((directory / "STOP").exists())
+            self.assertEqual(pulse.read_json(directory / "config.json")["goal_created_at"], 100)
+            self.assertFalse((directory / "owner.json").exists())
+
     def test_process_lock_excludes_second_owner(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory)
@@ -136,7 +153,7 @@ class DecisionTests(unittest.TestCase):
 
 
 class TransportTest(unittest.TestCase):
-    def test_actual_websocket_unix_transport_without_codex_or_model(self):
+    def check_transport(self, *, replace_goal=False):
         from websockets.sync.server import unix_serve
 
         with tempfile.TemporaryDirectory(prefix="pulse-test-") as temporary:
@@ -168,17 +185,43 @@ class TransportTest(unittest.TestCase):
                     self.assertEqual(len(fake.sends()), 1)
                     fake.goal["status"] = "paused"
                     args = [sys.executable, str(Path(pulse.__file__).resolve()),
-                            "start", "--thread", THREAD, "--socket", socket_path,
+                            "start", "--socket", socket_path,
                             "--state-root", str(directory / "state"), "--poll-seconds", ".05"]
-                    started = json.loads(subprocess.check_output(args, text=True))
+                    started = json.loads(subprocess.check_output(
+                        args, text=True, env={**os.environ, "CODEX_THREAD_ID": THREAD}))
                     self.assertTrue(started["started"])
-                    repeat = json.loads(subprocess.check_output(args, text=True))
+                    repeat = json.loads(subprocess.check_output(
+                        args + ["--thread", THREAD], text=True,
+                        env={**os.environ, "CODEX_THREAD_ID": "invalid-env-overridden"}))
                     self.assertEqual(repeat["reason"], "already-running")
                     state_dir = directory / "state" / THREAD
                     deadline = time.monotonic() + 3
                     while not (state_dir / "latest.json").exists() and time.monotonic() < deadline:
                         time.sleep(.02)
                     self.assertEqual(pulse.read_json(state_dir / "latest.json")["reason"], "goal-paused")
+                    if replace_goal:
+                        # Replacement happens while the paused old watcher still
+                        # holds the thread lock, before it observes the new Goal.
+                        fake.goal = {"createdAt": 101, "status": "paused"}
+                        replacement = json.loads(subprocess.check_output(
+                            args, text=True, env={**os.environ, "CODEX_THREAD_ID": THREAD}))
+                        self.assertTrue(replacement["started"])
+                        self.assertNotEqual(replacement["pid"], started["pid"])
+                        self.assertEqual(pulse.read_json(state_dir / "config.json")["goal_created_at"], 101)
+                        deadline = time.monotonic() + 3
+                        while time.monotonic() < deadline:
+                            owner = pulse.read_json(state_dir / "owner.json", {})
+                            if owner.get("pid") == replacement["pid"]:
+                                break
+                            time.sleep(.02)
+                        self.assertEqual(owner["pid"], replacement["pid"])
+                        self.assertEqual(pulse.read_json(state_dir / "stopped.json")["pid"],
+                                         started["pid"])
+                        # The successor owns the inherited exclusive lock, so
+                        # the previous watcher has completed its run and released it.
+                        repeat = json.loads(subprocess.check_output(
+                            args, text=True, env={**os.environ, "CODEX_THREAD_ID": THREAD}))
+                        self.assertEqual(repeat["reason"], "already-running")
                     (state_dir / "STOP").touch()
                     deadline = time.monotonic() + 3
                     while pulse.is_running(state_dir) and time.monotonic() < deadline:
@@ -193,9 +236,15 @@ class TransportTest(unittest.TestCase):
                     server.shutdown()
                     thread.join(timeout=3)
 
+    def test_actual_websocket_unix_transport_without_codex_or_model(self):
+        self.check_transport()
+
+    def test_start_replaces_previous_goal_watcher(self):
+        self.check_transport(replace_goal=True)
+
 
 class TickCLIMessageTests(unittest.TestCase):
-    def check_tick_message(self, *, saved_config, custom_message):
+    def check_tick_message(self, *, saved_config, custom_message, thread_source="explicit"):
         from websockets.sync.server import unix_serve
 
         with tempfile.TemporaryDirectory(prefix="pulse-cli-") as temporary:
@@ -230,18 +279,23 @@ class TickCLIMessageTests(unittest.TestCase):
                 thread.start()
                 try:
                     args = [sys.executable, str(Path(pulse.__file__).resolve()),
-                            "tick", "--apply", "--thread", THREAD,
+                            "tick", "--apply",
                             "--socket", socket_path, "--state-root", str(state_root)]
+                    env = dict(os.environ)
+                    env["CODEX_THREAD_ID"] = (THREAD if thread_source == "environment" else
+                                              "22222222-2222-4222-8222-222222222222")
+                    if thread_source == "explicit":
+                        args += ["--thread", THREAD]
                     if custom_message:
                         args += ["--message-file", str(message_file)]
-                    result = json.loads(subprocess.check_output(args, text=True))
+                    result = json.loads(subprocess.check_output(args, text=True, env=env))
                     self.assertEqual(result["action"], "sent")
                     expected = (message_file.read_text() if custom_message else
                                 "saved watcher message" if saved_config else pulse.MESSAGE)
                     self.assertEqual(fake.sends()[0]["input"], [{"type": "text", "text": expected}])
                     self.assertEqual(fake.sends()[0]["expectedTurnId"], TURN)
                     # Applying another tick still respects the persisted cooldown.
-                    again = json.loads(subprocess.check_output(args, text=True))
+                    again = json.loads(subprocess.check_output(args, text=True, env=env))
                     self.assertEqual(again["reason"], "cooldown")
                     self.assertEqual(len(fake.sends()), 1)
                     if saved_config:
@@ -262,6 +316,45 @@ class TickCLIMessageTests(unittest.TestCase):
         for saved_config in (False, True):
             with self.subTest(saved_config=saved_config):
                 self.check_tick_message(saved_config=saved_config, custom_message=False)
+
+
+    def test_tick_uses_host_thread_when_omitted(self):
+        self.check_tick_message(saved_config=False, custom_message=False,
+                                thread_source="environment")
+
+    def test_all_commands_reject_missing_thread_before_creating_state(self):
+        env = dict(os.environ)
+        env.pop("CODEX_THREAD_ID", None)
+        with tempfile.TemporaryDirectory(prefix="pulse-no-thread-") as temporary:
+            state_root = Path(temporary) / "must-not-exist"
+            for command in ("start", "status", "stop", "tick"):
+                with self.subTest(command=command):
+                    result = subprocess.run(
+                        [sys.executable, str(Path(pulse.__file__).resolve()), command,
+                         "--state-root", str(state_root), "--socket", "/does-not-exist.sock"],
+                        env=env, text=True, capture_output=True)
+                    self.assertEqual(result.returncode, 2)
+                    self.assertIn("Specify --thread", result.stderr)
+                    self.assertIn("CODEX_THREAD_ID", result.stderr)
+                    self.assertNotIn("Traceback", result.stderr)
+                    self.assertFalse(state_root.exists())
+
+    def test_status_and_stop_use_host_default_and_explicit_override(self):
+        alternate = "22222222-2222-4222-8222-222222222222"
+        env = {**os.environ, "CODEX_THREAD_ID": THREAD}
+        with tempfile.TemporaryDirectory(prefix="pulse-thread-") as temporary:
+            for command in ("status", "stop"):
+                for explicit in (False, True):
+                    with self.subTest(command=command, explicit=explicit):
+                        state_root = Path(temporary) / f"{command}-{explicit}"
+                        args = [sys.executable, str(Path(pulse.__file__).resolve()),
+                                command, "--state-root", str(state_root)]
+                        if explicit:
+                            args += ["--thread", alternate]
+                        result = json.loads(subprocess.check_output(args, env=env, text=True))
+                        expected = alternate if explicit else THREAD
+                        self.assertEqual(result["state_dir"], str((state_root / expected).resolve()))
+                        self.assertFalse((state_root / (THREAD if explicit else alternate)).exists())
 
 
 if __name__ == "__main__":

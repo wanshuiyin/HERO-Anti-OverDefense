@@ -60,12 +60,15 @@ on the hour.
 This hook setup is optional host configuration, separate from installing the
 core rules.
 
-## Optional execution reminders for Codex
+## Goal execution reminders for Codex
 
 [Goal Pulse](../skills/goal-pulse/README.md) addresses a different long-run problem:
 finished worker outputs waiting for pickup, repeated attempts at the same blocker,
 and reports replacing execution. It sends a short action reminder every 30 minutes
-to an existing active Codex Goal turn, with no separate report expected.
+to an existing active Codex Goal turn, with no separate report expected. After
+installation, its activation instruction makes the main agent start it by default
+when the user starts or resumes a Goal, or the main agent takes over an active Goal.
+No separate skill invocation or confirmation is needed.
 
 The timer requires a compatible local Codex app-server on macOS or Linux/POSIX.
 It stays silent while the Goal is paused or waiting for input, and stops when the
