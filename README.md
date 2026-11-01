@@ -57,6 +57,19 @@ Only things that change what you should do. Not rewording, not layout — a
 changelog of everything buries the one line that mattered.
 
 - **2026-11-01** — **Goal Pulse for Codex.** Once installed, the [skill and local timer](skills/goal-pulse/README.md) activates by default when you start or resume a Goal, reminding the main agent to collect finished work and tackle recurring blockers. Bilingual reminders run every 30 minutes; paused Goals stay silent. The core HERO block is unchanged.
+
+  Full Chinese reminder sent by the timer:
+
+  > 中文：以最快的有效速度持续推进当前 Goal，不允许磨洋工、偷懒、空转，或拿计划和汇报代替执行。
+  >
+  > worker/子代理一交付完整产物，立即读取、核验，并推进到下一项已授权的验收或交接步骤，不得搁置或等整批。
+  >
+  > 同一卡点连续两轮无实质进展，主代理立即接管具体缺口或重新拆分，同时推进其它独立任务。
+  >
+  > 复用已有成果与有效验证，砍掉重复检查、无收益的 corner case 和包装。
+  >
+  > 不得降低原目标、难度和验收标准，不得越过授权和预算；直接行动，无需专门回复本提醒。
+
 - **2026-09-03** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 📣 **Rule 7 gains the press-release principle — re-paste it.** A paper is a launch, not a progress report: lead with the strongest result; an unfavorable number that is a tradeoff is explained as one, one that is not is stated plainly, and either way it stays in the table — never narrated as a defeat. Adopted from [anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill) by [@Adkid-Zephyr](https://github.com/Adkid-Zephyr), which works the principle out in full for papers.
 - **2026-09-02** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🏃 **The block changed — re-paste it.** Rule 8: momentum is part of the deliverable — when several options are reasonable, pick one and note the tradeoff instead of handing back a menu. Rule 7 now also bans process traces: intermediate errors, abandoned approaches and AI-assistance markers are not content; rule 9 spells that out in full. Both distilled from a working ML researcher's config — the [original](examples/ml-research-daily-driver.zh-CN.md) is in `examples/`. New sibling named: stalling.
 - **2026-08-26** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) ✍️ **Rule 7, plus two new siblings: defensive prose.** Caveats scattered through every paragraph until the work reads as an apology (`SIB-003`); instructions confessed into the product — told "do not mention X", it writes "we do not address X" (`SIB-004`). Rule 7: deliverable text is not a defense transcript. Distilled from repairing a writing pipeline whose papers had turned into confessions.
