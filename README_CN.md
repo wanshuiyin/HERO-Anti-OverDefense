@@ -45,6 +45,19 @@
 只记会改变你该做什么的事。改措辞、调排版不记——什么都记的话,真正要紧的那一行就被埋了。
 
 - **2026-11-01** — **Codex Goal Pulse。** [技能与本地提醒器](skills/goal-pulse/README.md)安装后，在启动或继续 Goal 时默认启用，提醒主代理及时回收产物、处理反复卡点，无需再点名技能。每 30 分钟发送中英双语提醒，Goal 暂停时静默；HERO 核心规则不变。
+
+  定时器发送的完整中文提示：
+
+  > 中文：以最快的有效速度持续推进当前 Goal，不允许磨洋工、偷懒、空转，或拿计划和汇报代替执行。
+  >
+  > worker/子代理一交付完整产物，立即读取、核验，并推进到下一项已授权的验收或交接步骤，不得搁置或等整批。
+  >
+  > 同一卡点连续两轮无实质进展，主代理立即接管具体缺口或重新拆分，同时推进其它独立任务。
+  >
+  > 复用已有成果与有效验证，砍掉重复检查、无收益的 corner case 和包装。
+  >
+  > 不得降低原目标、难度和验收标准，不得越过授权和预算；直接行动，无需专门回复本提醒。
+
 - **2026-09-03** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 📣 **规则 7 加入发布会原则,重新粘一遍。** 论文是发布会,不是工作汇报:围绕最强结果组织;不占优的数字是取舍就说成取舍,不是就平实陈述,都不写成认输,数字照样留在表里。采自 [anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill)([@Adkid-Zephyr](https://github.com/Adkid-Zephyr)),那边有面向论文的完整版。
 - **2026-09-02** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🏃 **块变了,重新粘一遍。** 新增规则 8:推进本身是交付的一部分——方案都合理就选一个写明取舍,别停下来发选择题。规则 7 补上过程痕迹:中间报错、废方案、AI 署名和模型腔都不是内容,新增规则 9 完整写明。两条都提炼自一位 ML 研究者的实际配置,[原件](examples/ml-research-daily-driver.zh-CN.md)收进 `examples/`。新命名一条旁支:停摆(stalling)。
 - **2026-08-26** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) ✍️ **规则 7,外加两条新旁支:防御性文字。** 每段撒 caveat,整篇写成道歉信(`SIB-003`);指令忏悔进成品——叫它"别提 X",它写"我们不讨论 X"(`SIB-004`)。规则 7:交付物不是答辩记录。提炼自一条真实写作流水线的修复:它产的论文已经变成了忏悔书。
