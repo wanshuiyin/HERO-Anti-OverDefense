@@ -1,7 +1,0 @@
-# This repository is Markdown, deliberately — there is no code to ship.
-#
-# Linguist classifies Markdown as prose and leaves prose out of the language
-# statistics, so without this the repo reports no language at all and its card
-# shows a blank where every other repo shows a dot. These two overrides say
-# "count it": the claim is accurate, which is the only reason to make it.
-*.md linguist-detectable=true linguist-documentation=false
