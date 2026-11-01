@@ -126,6 +126,30 @@ class DecisionTests(unittest.TestCase):
         self.assertEqual(state, {})
         self.assertFalse(rpc.sends())
 
+    def test_start_preserves_same_goal_cooldown_and_resets_new_goal_state(self):
+        for previous_created_at in (100, 99):
+            with self.subTest(previous_created_at=previous_created_at), tempfile.TemporaryDirectory() as temporary:
+                directory = Path(temporary)
+                pulse.write_json(directory / "config.json", {
+                    **CONFIG, "goal_created_at": previous_created_at})
+                old_state = {"last_attempt_at": 123, "last_turn_id": "old-turn"}
+                pulse.write_json(directory / "state.json", old_state)
+                rpc = mock.Mock()
+                rpc.call.return_value = {"goal": {"createdAt": 100, "status": "paused"}}
+                args = SimpleNamespace(socket="unused-mock-socket", thread=THREAD,
+                                       interval_minutes=30, poll_seconds=60, message_file=None)
+                with mock.patch.object(pulse, "CodexRPC", return_value=rpc), \
+                        mock.patch.object(pulse.subprocess, "Popen") as popen:
+                    popen.return_value.pid = 999
+                    result = pulse.start(args, directory)
+                self.assertTrue(result["started"])
+                state = pulse.read_json(directory / "state.json")
+                if previous_created_at == 100:
+                    self.assertEqual(state, old_state)
+                else:
+                    self.assertEqual(set(state), {"last_attempt_at"})
+                    self.assertGreater(state["last_attempt_at"], 123)
+
     def test_replacement_timeout_does_not_claim_watcher_started(self):
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
@@ -202,12 +226,24 @@ class TransportTest(unittest.TestCase):
                     if replace_goal:
                         # Replacement happens while the paused old watcher still
                         # holds the thread lock, before it observes the new Goal.
+                        pulse.write_json(state_dir / "state.json", {
+                            "last_attempt_at": 1, "last_turn_id": "old-goal-turn"})
                         fake.goal = {"createdAt": 101, "status": "paused"}
                         replacement = json.loads(subprocess.check_output(
                             args, text=True, env={**os.environ, "CODEX_THREAD_ID": THREAD}))
                         self.assertTrue(replacement["started"])
                         self.assertNotEqual(replacement["pid"], started["pid"])
-                        self.assertEqual(pulse.read_json(state_dir / "config.json")["goal_created_at"], 101)
+                        new_config = pulse.read_json(state_dir / "config.json")
+                        self.assertEqual(new_config["goal_created_at"], 101)
+                        new_state = pulse.read_json(state_dir / "state.json")
+                        self.assertNotIn("last_turn_id", new_state)
+                        self.assertGreater(new_state["last_attempt_at"], 1)
+                        # Eligibility after resume must wait a fresh interval.
+                        fake.goal["status"] = "active"
+                        with pulse.contextlib.closing(pulse.CodexRPC(socket_path)) as rpc:
+                            self.assertEqual(pulse.tick(rpc, new_config, new_state, time.time(),
+                                                        dry_run=True)["reason"], "cooldown")
+                        fake.goal["status"] = "paused"
                         deadline = time.monotonic() + 3
                         while time.monotonic() < deadline:
                             owner = pulse.read_json(state_dir / "owner.json", {})

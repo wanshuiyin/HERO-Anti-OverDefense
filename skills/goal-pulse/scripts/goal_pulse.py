@@ -204,8 +204,10 @@ def start(args, directory, *, replacement_deadline=None):
                       "interval_seconds": args.interval_minutes * 60,
                       "poll_seconds": args.poll_seconds, "socket": args.socket,
                       "message": Path(args.message_file).read_text() if args.message_file else MESSAGE}
+            previous_config = read_json(directory / "config.json", {})
             write_json(directory / "config.json", config)
-            if not (directory / "state.json").exists():
+            if (previous_config.get("goal_created_at") != goal["createdAt"]
+                    or not (directory / "state.json").exists()):
                 write_json(directory / "state.json", {"last_attempt_at": time.time()})
             (directory / "STOP").unlink(missing_ok=True)
             with (directory / "process.log").open("a") as output:
