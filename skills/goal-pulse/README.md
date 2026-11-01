@@ -1,6 +1,6 @@
 # Goal Pulse for Codex
 
-Keep a long-running Goal moving: collect finished worker artifacts, take over recurring blockers, and spend the next step on the deliverable. Goal Pulse provides a Codex skill and an optional local reminder every **30 minutes**, in Chinese and English.
+Keep a long-running Goal moving: collect finished worker artifacts, take over recurring blockers, and spend the next step on the deliverable. Once installed, the skill enables local reminders by default when you start or resume a Codex Goal, or the main agent takes over an active Goal: every **30 minutes**, in Chinese and English.
 
 The timer nudges an existing active turn. It does not create work, resume a paused Goal, or ask for another progress report. HERO's [core rules](../../RULES.md) still work by pasting them into your agent configuration; this helper is a separate, optional installation.
 
@@ -33,13 +33,34 @@ else
 fi
 ```
 
-For an existing installation, keep any local instructions and update the files you intend to replace. Keep its `.venv` and the separate per-thread state directory. Nothing here edits your global `AGENTS.md` or starts a timer.
+For an existing installation, keep any local instructions and update the files you intend to replace. Keep its `.venv` and the separate per-thread state directory.
+
+Add the activation instruction to Codex's always-loaded `AGENTS.md`. This appends one marked section and preserves the rest of the file:
+
+```sh
+goal_pulse_agents="${CODEX_HOME:-$HOME/.codex}/AGENTS.md"
+if ! grep -Fq '<!-- HERO-GOAL-PULSE:BEGIN -->' "$goal_pulse_agents" 2>/dev/null; then
+  cat >> "$goal_pulse_agents" <<'EOF'
+
+<!-- HERO-GOAL-PULSE:BEGIN -->
+## Goal Pulse
+When the user starts or resumes a Goal, or the main agent takes over an active Goal, read `${CODEX_HOME:-~/.codex}/skills/goal-pulse/SKILL.md` and enable its timer for the current Goal by default, without a separate request or confirmation.
+Use the host's `CODEX_THREAD_ID` or an explicit host-provided ID; never guess the latest thread. Prepare missing dependencies from the skill guide and report setup errors instead of silently skipping activation.
+Honor an explicit request to disable reminders. Installation and ordinary chat do not start a timer or create a Goal. A paused Goal stays paused; the timer never resumes it or starts a new turn.
+<!-- HERO-GOAL-PULSE:END -->
+EOF
+fi
+```
+
+On updates, refresh this marked section if needed. If you have an older Goal Pulse instruction that requires a separate request for scheduled reminders, replace that activation sentence with the default above. Installation itself does not start a timer.
 
 A new Codex session can discover `$goal-pulse`; an existing session can read the installed `SKILL.md` directly. To run from the clone instead, set `pulse_dir="$PWD/skills/goal-pulse"` and create its `.venv` with the same two Python commands.
 
 ## Use
 
-Select the existing Goal conversation you want to nudge. Replace `<THREAD_UUID>` with that conversation's actual ID, then run:
+Start or resume a Goal normally. The main agent reads the skill and starts the watcher for the current thread; you do not need to name `$goal-pulse` again. This is agent-driven activation through the instruction above, not a native Codex lifecycle hook.
+
+For manual control, select an existing Goal conversation. Replace `<THREAD_UUID>` with that conversation's actual ID, then run:
 
 ```sh
 pulse_dir="${CODEX_HOME:-$HOME/.codex}/skills/goal-pulse"
@@ -47,11 +68,9 @@ pulse_dir="${CODEX_HOME:-$HOME/.codex}/skills/goal-pulse"
   --thread <THREAD_UUID> --interval-minutes 30 --poll-seconds 60
 ```
 
-You can also tell the agent:
+Inside Codex, the helper reads `CODEX_THREAD_ID` when `--thread` is omitted. An explicit `--thread` takes precedence; outside Codex, provide the ID yourself. Repeating `start` for the same Goal preserves the existing watcher. A new Goal in the same thread waits for the previous watcher to exit before starting its own.
 
-> Use `$goal-pulse` to remind this existing Goal every 30 minutes. Collect finished work promptly, take over recurring blockers, and continue the next authorized step without writing a separate reply to each reminder.
-
-> 用 `$goal-pulse`，每 30 分钟提醒这个已有 Goal。完整产物及时回收，反复卡住的具体问题及时接管，继续下一步已授权工作，不用专门回复提醒。
+安装后，正常启动或继续 Goal 即可，主代理会默认开启当前线程的提醒，无需再点名技能或确认。默认每 30 分钟发送中英双语提醒；明确关闭提醒时遵循用户选择。
 
 ```sh
 # Inspect the watcher; stop this watcher without changing the Goal.

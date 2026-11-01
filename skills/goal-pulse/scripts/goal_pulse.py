@@ -192,7 +192,7 @@ def run(config_path: Path, inherited=None):
         write_json(directory / "stopped.json", {"at": time.time(), "pid": os.getpid()})
 
 
-def start(args, directory):
+def start(args, directory, *, replacement_deadline=None):
     directory.mkdir(parents=True, exist_ok=True)
     try:
         with lock(directory / "run.lock") as held:
@@ -204,8 +204,10 @@ def start(args, directory):
                       "interval_seconds": args.interval_minutes * 60,
                       "poll_seconds": args.poll_seconds, "socket": args.socket,
                       "message": Path(args.message_file).read_text() if args.message_file else MESSAGE}
+            previous_config = read_json(directory / "config.json", {})
             write_json(directory / "config.json", config)
-            if not (directory / "state.json").exists():
+            if (previous_config.get("goal_created_at") != goal["createdAt"]
+                    or not (directory / "state.json").exists()):
                 write_json(directory / "state.json", {"last_attempt_at": time.time()})
             (directory / "STOP").unlink(missing_ok=True)
             with (directory / "process.log").open("a") as output:
@@ -219,7 +221,24 @@ def start(args, directory):
                     "interval_minutes": args.interval_minutes,
                     "paused_goals_receive_no_messages": True, "state_dir": str(directory)}
     except BlockingIOError:
-        return {"started": False, "reason": "already-running", "state_dir": str(directory)}
+        config = read_json(directory / "config.json", {})
+        with contextlib.closing(CodexRPC(args.socket)) as rpc:
+            goal = rpc.call("thread/goal/get", {"threadId": args.thread}).get("goal")
+        if not goal:
+            raise RuntimeError("This thread has no existing Goal. This tool will not create one.")
+        if config.get("goal_created_at") == goal["createdAt"]:
+            return {"started": False, "reason": "already-running", "state_dir": str(directory)}
+        # The existing watcher belongs to the previous Goal. Let it release its
+        # lock normally before binding a new watcher; never kill or resume it.
+        (directory / "STOP").touch()
+        if replacement_deadline is None:
+            replacement_deadline = time.monotonic() + config.get("poll_seconds", 60) + 45
+        while is_running(directory):
+            if time.monotonic() >= replacement_deadline:
+                raise RuntimeError("Previous Goal watcher did not stop before the replacement timeout; "
+                                   "no new watcher was started.")
+            time.sleep(.05)
+        return start(args, directory, replacement_deadline=replacement_deadline)
 
 
 def main():
@@ -227,7 +246,7 @@ def main():
     sub = parser.add_subparsers(dest="command", required=True)
     for command in ("start", "status", "stop", "tick"):
         p = sub.add_parser(command)
-        p.add_argument("--thread", required=True, type=lambda value: str(uuid.UUID(value)))
+        p.add_argument("--thread", help="Thread UUID; defaults to the host CODEX_THREAD_ID.")
         p.add_argument("--state-root", type=Path, default=HOME / "goal-pulse")
         p.add_argument("--socket", default=str(HOME / "app-server-control/app-server-control.sock"))
         if command in ("start", "tick"):
@@ -243,6 +262,13 @@ def main():
     if args.command == "run":
         run(args.config, args.lock_fd)
         return
+    thread_value = args.thread if args.thread is not None else os.environ.get("CODEX_THREAD_ID")
+    if not thread_value:
+        parser.error("Specify --thread or run inside a Codex host providing CODEX_THREAD_ID.")
+    try:
+        args.thread = str(uuid.UUID(thread_value))
+    except ValueError:
+        parser.error("--thread / CODEX_THREAD_ID must be a valid thread UUID.")
     directory = args.state_root.expanduser().resolve() / args.thread
     if args.command in ("start", "tick") and (args.interval_minutes <= 0 or args.poll_seconds <= 0):
         parser.error("Intervals must be positive.")
