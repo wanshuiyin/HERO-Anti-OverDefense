@@ -67,6 +67,8 @@ a new session, and continue from the recorded evidence and next action.
 Only things that change what you should do. Not rewording, not layout — a
 changelog of everything buries the one line that mattered.
 
+- **2026-11-02** — **Session Handoff — the third HERO path.** The [Markdown skill for Codex and Claude Code](skills/session-handoff/README.md) saves the objective, evidence, decisions, active work, and next action, then guides a fresh session to continue from those files. It reuses existing recovery notes and needs no Python. Together with HERO Rules and Goal Pulse: **focus, momentum, continuity**.
+
 - **2026-11-01** — **Goal Pulse for Codex.** Once installed, the [skill and local timer](skills/goal-pulse/README.md) activates by default when you start or resume a Goal, reminding the main agent to collect finished work and tackle recurring blockers. Bilingual reminders run every 30 minutes; paused Goals stay silent. The core HERO block is unchanged.
 
   Full Chinese reminder sent by the timer:
@@ -81,6 +83,9 @@ changelog of everything buries the one line that mattered.
   >
   > 不得降低原目标、难度和验收标准，不得越过授权和预算；直接行动，无需专门回复本提醒。
 
+<details>
+<summary>Earlier updates (August–September 2026)</summary>
+
 - **2026-09-03** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 📣 **Rule 7 gains the press-release principle — re-paste it.** A paper is a launch, not a progress report: lead with the strongest result; an unfavorable number that is a tradeoff is explained as one, one that is not is stated plainly, and either way it stays in the table — never narrated as a defeat. Adopted from [anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill) by [@Adkid-Zephyr](https://github.com/Adkid-Zephyr), which works the principle out in full for papers.
 - **2026-09-02** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🏃 **The block changed — re-paste it.** Rule 8: momentum is part of the deliverable — when several options are reasonable, pick one and note the tradeoff instead of handing back a menu. Rule 7 now also bans process traces: intermediate errors, abandoned approaches and AI-assistance markers are not content; rule 9 spells that out in full. Both distilled from a working ML researcher's config — the [original](examples/ml-research-daily-driver.zh-CN.md) is in `examples/`. New sibling named: stalling.
 - **2026-08-26** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) ✍️ **Rule 7, plus two new siblings: defensive prose.** Caveats scattered through every paragraph until the work reads as an apology (`SIB-003`); instructions confessed into the product — told "do not mention X", it writes "we do not address X" (`SIB-004`). Rule 7: deliverable text is not a defense transcript. Distilled from repairing a writing pipeline whose papers had turned into confessions.
@@ -92,6 +97,8 @@ changelog of everything buries the one line that mattered.
 > ⚠️ **Pasted the block before any of the above? Yours is stale.** The install
 > command won't fix it — the guard that stops it appending twice also stops it
 > replacing. Delete your old `=== SCOPE LIMITS ... ===` section and run it again.
+
+</details>
 
 ---
 
