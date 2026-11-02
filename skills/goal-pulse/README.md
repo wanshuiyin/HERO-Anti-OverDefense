@@ -1,8 +1,72 @@
-# Goal Pulse for Codex
+# Goal Pulse for Codex and Claude Code
 
-Keep a long-running Goal moving: collect finished worker artifacts, take over recurring blockers, and spend the next step on the deliverable. Once installed, the skill enables local reminders by default when you start or resume a Codex Goal, or the main agent takes over an active Goal: every **30 minutes**, in Chinese and English.
+Keep a long-running goal moving: collect finished worker artifacts, take over recurring blockers, and spend the next step on the deliverable. Install the skill and activation instruction for your host; the main agent then enables **30-minute bilingual reminders by default** when you start or resume an authorized long goal.
 
-The timer nudges an existing active turn. It does not create work, resume a paused Goal, or ask for another progress report. HERO's [core rules](../../RULES.md) still work by pasting them into your agent configuration; this helper is a separate, optional installation.
+| Host | Reminder route | Setup |
+|---|---|---|
+| Codex | Python watcher, steers an existing active Goal turn | [Codex installation](#install) |
+| Claude Code | Native cron / `/loop`, handles the reminder between turns | [Claude Code installation](#claude-code) |
+
+Both use the same efficiency directive. HERO's [core rules](../../RULES.md) still work by pasting them into your agent configuration; Goal Pulse is a separate installation.
+
+## Claude Code
+
+Claude Code has two complementary commands: [`/goal`](https://code.claude.com/docs/en/goal) keeps working toward a completion condition, while [`/loop`](https://code.claude.com/docs/en/scheduled-tasks) schedules a prompt. Goal Pulse uses native session cron to deliver its reminder. **No Python environment or Codex app-server is needed for this route.**
+
+From a clone of this repository, install the Markdown skill:
+
+```sh
+pulse_dir="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/skills/goal-pulse"
+if [ -e "$pulse_dir" ] || [ -L "$pulse_dir" ]; then
+  echo "Already installed at $pulse_dir; compare and update the existing files."
+else
+  mkdir -p "$pulse_dir/references"
+  cp skills/goal-pulse/SKILL.md skills/goal-pulse/README.md "$pulse_dir/"
+  cp skills/goal-pulse/references/claude-code.md "$pulse_dir/references/"
+fi
+```
+
+Add this section to the `CLAUDE.md` your host always loads (normally `~/.claude/CLAUDE.md`), preserving existing instructions. For a custom config directory, use the actual installed skill path.
+
+```markdown
+<!-- HERO-GOAL-PULSE-CLAUDE:BEGIN -->
+## Goal Pulse
+When the user starts or resumes /goal, explicitly authorizes a long autonomous task,
+or resumes that unfinished work, read ~/.claude/skills/goal-pulse/SKILL.md and its
+references/claude-code.md. By default, enable a 30-minute reminder in this session
+without another request or confirmation. Only the main agent creates it.
+Use native CronList / CronCreate / CronDelete. Bind [HERO-GOAL-PULSE] to the actual
+target and constraints, reuse an existing matching reminder, and record the real
+job ID. A pulse executes work and never creates another reminder.
+Cancel this task's reminder when it completes, is paused or replaced, waits for
+user input/approval, or reaches its budget limit. A late pulse cleans itself up
+instead of reopening stopped work. Resume reminders when authorized work resumes,
+unless the user explicitly disabled them; that opt-out lasts until re-enabled.
+Ordinary chat, one-off tasks, and skill installation do not create cron jobs.
+<!-- HERO-GOAL-PULSE-CLAUDE:END -->
+```
+
+Once installed, start or resume your goal normally. The main agent follows this instruction to enable the reminder; this is an instruction-driven default, not a host lifecycle hook. In an already open session, ask it to read the installed skill once. The skill supports:
+
+```text
+/goal-pulse start Finish the authorized module migration and pass its existing tests
+/goal-pulse status
+/goal-pulse stop
+```
+
+To schedule it explicitly yourself, fill in your actual target and check that the same task has no reminder already:
+
+```text
+/loop 30m /goal-pulse pulse --task '<actual authorized target>' [HERO-GOAL-PULSE]
+```
+
+This invokes the skill's single `pulse` action each time. Do not put `start` inside `/loop`. The shared [Claude Code reference](references/claude-code.md) contains the complete bilingual prompt, deduplication, status and cancellation procedure.
+
+Claude Code delivers scheduled prompts **between turns**; a busy turn delays delivery. The interval has scheduling jitter, and current recurring jobs expire after seven days. Unexpired fixed jobs can return with a resumed session, so the agent checks `CronList` before creating another. The session must remain running. Use `/goal-pulse stop` to cancel this reminder; interrupting a turn alone does not delete a fixed cron job. Other `/loop` tasks and the general `loop.md` prompt are unchanged.
+
+The agent checks the bound task and cancels its reminder when work stops. These are model-followed instructions; the Codex watcher's Goal API and active-turn gate do not apply to Claude Code. If native Cron tools are unavailable, the agent reports that reminders were not enabled and continues the authorized work.
+
+The remaining sections describe the **Codex Python watcher**.
 
 ## Requirements
 

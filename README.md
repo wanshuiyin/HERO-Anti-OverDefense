@@ -31,7 +31,7 @@ This repository is a short block you paste into your agent's config, plus a
 catalogue of the behaviours it is meant to stop. It works with **Claude Code**,
 **Codex**, **Antigravity**, **Cursor**, **GitHub Copilot**, **Windsurf** and
 **Gemini CLI** — anything that loads a config file without being asked. There is
-nothing to install for those rules. For long-running Codex Goals, the optional
+nothing to install for those rules. For long goals in Codex or Claude Code, the optional
 [Goal Pulse skill](skills/goal-pulse/README.md) enables execution reminders by
 default when you start or resume a Goal after installing it.
 For a fresh conversation, [Session Handoff](skills/session-handoff/README.md)
@@ -47,16 +47,18 @@ to continue.
 ![HERO: over-defense addressed by persistent rules for focus, Goal drift addressed by a 30-minute Python reminder for momentum, and context loss addressed by a Markdown session handoff for continuity.](assets/hero-three-paths.png)
 
 Three complementary paths: **HERO Rules** keep work focused, **Goal Pulse** keeps
-an active Codex Goal moving, and **Session Handoff** carries useful state into a
+an active goal moving, and **Session Handoff** carries useful state into a
 fresh conversation. The last is a file-based workflow: prepare the handoff, open
 a new session, and continue from the recorded evidence and next action.
+The diagram shows the Codex Python timer; Claude Code uses native `/loop` for
+the same Goal Pulse role.
 
 | | |
 |---|---|
 | **[`RULES.md`](RULES.md)** | The contract, in English and Chinese, plus the three places the line is genuinely hard to draw. |
 | **[`cases/`](cases/README.md)** | Observed behaviours: what was asked, what the agent did, why it is disproportionate, what proportionate looks like. **You do not paste this in** — it is what you quote back when the agent argues. |
 | **[`hosts/`](hosts/README.md)** | Where to paste it — Claude Code, Codex, Antigravity, Copilot, Cursor, Windsurf, Gemini CLI. |
-| **[`Goal Pulse`](skills/goal-pulse/README.md)** | Codex skill and timer: once installed, enabled by default for Goal starts and resumes; collect finished work and tackle recurring blockers every 30 minutes. |
+| **[`Goal Pulse`](skills/goal-pulse/README.md)** | Codex timer or Claude Code native cron: once installed, enabled by default for long-goal starts and resumes; collect finished work and tackle recurring blockers every 30 minutes. |
 | **[`Session Handoff`](skills/session-handoff/README.md)** | A detailed Markdown skill for Codex and Claude Code: prepare an evidence-backed handoff, then continue in a fresh session without repeating completed work. |
 | **[`examples/`](examples/)** | Optional, and not part of HERO. Real `AGENTS.md` / `CLAUDE.md` files contributors wrote for **their own projects** and shared so you can see how they adapted the ideas. Not HERO variants, and not the [short version](RULES.md#the-short-version) — their thresholds are theirs. Borrow the approach, not the file. |
 
