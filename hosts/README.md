@@ -60,7 +60,7 @@ on the hour.
 This hook setup is optional host configuration, separate from installing the
 core rules.
 
-## Goal execution reminders for Codex
+## Goal execution reminders
 
 [Goal Pulse](../skills/goal-pulse/README.md) addresses a different long-run problem:
 finished worker outputs waiting for pickup, repeated attempts at the same blocker,
@@ -75,6 +75,14 @@ It stays silent while the Goal is paused or waiting for input, and stops when th
 Goal finishes or is replaced. It does not start a new turn or resume work. This is
 an optional tool with its own installation; the core HERO rules still need only
 the configuration block above.
+
+**Claude Code** uses the same [Goal Pulse skill with native cron / `/loop`](../skills/goal-pulse/README.md#claude-code).
+Install its Markdown files and activation instruction in `CLAUDE.md`; on `/goal`
+start/resume or explicitly authorized long autonomous work, the main agent enables
+a 30-minute reminder by default. No Python helper is needed. Cron handles prompts
+between turns, and the agent cancels this task's reminder on completion, pause, or
+an input/approval/budget stop. An explicit reminder opt-out remains in effect until
+the user re-enables it. Other scheduled tasks and `loop.md` keep their own behavior.
 
 ## Placement inside the file
 

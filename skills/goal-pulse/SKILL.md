@@ -1,6 +1,6 @@
 ---
 name: goal-pulse
-description: Enable Goal Pulse by default whenever the user starts or resumes a Codex Goal, or the main agent takes over an active Goal. Keep work moving with timely artifact collection, stalled-worker takeover, and bilingual reminders every 30 minutes.
+description: Enable Goal Pulse by default on Codex Goal start, resume, or takeover, and on Claude Code /goal or explicitly authorized long autonomous work. Use a Codex timer or Claude Code native cron for bilingual execution reminders every 30 minutes. Supports start, status, stop, and a single pulse.
 ---
 
 # Goal Pulse
@@ -18,13 +18,28 @@ Advance the current Goal at the fastest effective pace. Spend work on the delive
 
 Use the project's existing state files for essential breakpoints. Give normal progress updates and answer the user; do not write an extra acknowledgement or report just because a pulse arrived.
 
+## Choose the host route first
+
+**Claude Code:** read [the native cron instructions](references/claude-code.md).
+Use `CronList`, `CronCreate`, and `CronDelete` in the current conversation, or the
+documented `/loop 30m` equivalent. Start or resume of `/goal`, or an explicitly
+authorized long autonomous task, enables reminders by default after installation.
+Dispatch `start`, `status`, `stop`, or `pulse` before acting: a scheduled `pulse`
+executes one reminder and never creates another cron. Honor a user's opt-out until
+they ask to enable reminders again. Only the main agent manages the reminder.
+Continue in that reference; the Python commands below belong to Codex.
+
+**Codex:** follow the watcher instructions below. Its Goal/turn checks and transport
+remain specific to Codex. Installation, ordinary chat, and reading this skill do
+not start a timer or create a Goal on either host.
+
 ## Default activation for Codex Goals
 
 Whenever the user starts or resumes a Goal, or the main agent takes over an active Goal, enable the timer for that thread by default. Do not wait for a separate `$goal-pulse` request or ask for confirmation. Start after the Goal exists; honor an explicit user request to disable reminders. Reading or installing this skill and ordinary chat do not create a Goal or start its timer. Only the main agent activates the Goal's watcher; workers do not start extra timers.
 
 Use the host's `CODEX_THREAD_ID`, which the helper reads by default. If the host supplies the thread ID another way, pass it with `--thread`. Never choose a conversation from recent activity. If the skill environment or dependency is missing, prepare it using the installation guide; report an actual setup blocker instead of silently treating reminders as enabled.
 
-The helper requires Python 3.10+, the adjacent `requirements.txt`, and a running local Codex app-server with the Goal API and Unix control socket. See [installation and commands](README.md). It uses POSIX facilities; this timer does not support native Windows or other agent hosts.
+The helper requires Python 3.10+, the adjacent `requirements.txt`, and a running local Codex app-server with the Goal API and Unix control socket. See [installation and commands](README.md). This Python watcher uses POSIX facilities and does not support native Windows; Claude Code uses its own native route above.
 
 For a standard skill installation:
 
