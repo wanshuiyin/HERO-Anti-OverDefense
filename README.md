@@ -347,6 +347,20 @@ community) to compare notes on where your agent over-defends:
 
 ---
 
+## ⭐ Star History
+
+![GitHub stars](https://img.shields.io/github/stars/wanshuiyin/HERO-Anti-OverDefense?style=social)
+
+<a href="https://www.star-history.com/?repos=wanshuiyin%2FHERO-Anti-OverDefense&type=date&legend=top-left">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=wanshuiyin/HERO-Anti-OverDefense&type=date&theme=dark&legend=top-left" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=wanshuiyin/HERO-Anti-OverDefense&type=date&legend=top-left" />
+    <img alt="HERO Star History Chart" src="https://api.star-history.com/chart?repos=wanshuiyin/HERO-Anti-OverDefense&type=date&legend=top-left" />
+  </picture>
+</a>
+
+---
+
 ## 📖 License
 
 MIT.
