@@ -22,7 +22,7 @@
 
 这些形状看起来像是:agent 在优化**不被追责**,而不是**活儿干得好**——这是一个能解释观察的**假说**,不是关于这些模型怎么训出来的定论。但不管病根是什么,形状是真的,而且就是四种——**H**ashing(哈希)、**E**dge cases(边界情况)、**R**ubrics(把判断换成机械)、**O**verbuild(过度建设),四个首字母拼起来就是 **HERO**。给它们起了名字,你就能说"刚才犯的是哪一种",而不是空对空地争"是不是有点过了"。
 
-这个仓库 = 一段粘进 agent 配置的短文本 + 一份它要制止的行为案例库。**Claude Code、Codex、Antigravity、Cursor、GitHub Copilot、Windsurf、Gemini CLI** 都能用——任何"不用你喊、自己就会加载配置文件"的 agent 都能用。这套规则无需安装；长时间运行 Codex Goal 时，还可单独安装 [Goal Pulse 技能与提醒器](skills/goal-pulse/README.md)。
+这个仓库 = 一段粘进 agent 配置的短文本 + 一份它要制止的行为案例库。**Claude Code、Codex、Antigravity、Cursor、GitHub Copilot、Windsurf、Gemini CLI** 都能用——任何"不用你喊、自己就会加载配置文件"的 agent 都能用。这套规则无需安装；长时间运行 Codex Goal 时，还可单独安装 [Goal Pulse 技能与提醒器](skills/goal-pulse/README.md)。准备换新会话时，[Session Handoff](skills/session-handoff/README.md) 会把任务状态保存到项目文件，让下一会话接着做。
 
 > 🧬 *从 [ARIS](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep)(~13.7k★)里泛化出来。它的跨模型审阅器确实好用——但也把可观的一部分产出花在了提议"加个没人读的哈希"上。HERO 留下价值,去掉税。*
 
@@ -30,12 +30,19 @@
 
 ## 🧭 里面有什么
 
+![HERO 三条路径：持久规则应对过度防御，保持聚焦；每 30 分钟的 Python 提醒应对 Goal 漂移，保持推进；Markdown 会话交接应对上下文丢失，延续任务状态。](assets/hero-three-paths.png)
+
+三条路径相互配合：**HERO Rules** 让精力花在成果上，**Goal Pulse** 提醒运行中的 Codex Goal
+持续推进，**Session Handoff** 把有用状态交给新会话。第三条通过文件衔接：整理交接，
+由用户打开新会话，再从已保存的证据和下一步行动继续。
+
 | | |
 |---|---|
 | **[`RULES.md`](RULES.md)** | 契约本体(中英各一份),以及三处真正不好划的边界。 |
 | **[`cases/`](cases/README.md)** | 观察到的行为:要求是什么、agent 做了什么、为什么不成比例、正确该怎样。**这份不粘进配置**——它是 agent 跟你争的时候,你甩回去的东西。 |
 | **[`hosts/`](hosts/README.md)** | 粘到哪儿——Claude Code、Codex、Antigravity、Copilot、Cursor、Windsurf、Gemini CLI。 |
 | **[`Goal Pulse`](skills/goal-pulse/README.md)** | Codex 技能与定时器：安装后在启动或继续 Goal 时默认启用，每 30 分钟提醒及时回收完整产物、接管反复卡点。 |
+| **[`Session Handoff`](skills/session-handoff/README.md)** | Codex、Claude Code 共用的完整 Markdown 技能：准备有证据支撑的交接，再由新会话接续，复用已完成工作。 |
 | **[`examples/`](examples/)** | 可选,不属于 HERO 本体。贡献者为**自己项目**写的真实 `AGENTS.md` / `CLAUDE.md`,分享出来给你看他们是怎么把这套思路落到自己领域的。**不是** HERO 的变体,也不是[精简版](RULES.md#the-short-version)——里面的阈值是他们项目的。学写法,别照抄文件。 |
 
 ---
