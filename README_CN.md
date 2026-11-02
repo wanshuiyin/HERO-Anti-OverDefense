@@ -51,6 +51,8 @@
 
 只记会改变你该做什么的事。改措辞、调排版不记——什么都记的话,真正要紧的那一行就被埋了。
 
+- **2026-11-02** — **Session Handoff：HERO 的第三条路径。** [Codex、Claude Code 共用的 Markdown 技能](skills/session-handoff/README.md)保存目标、证据、决策、在途任务与具体下一步，再引导新会话从文件接着做。复用已有恢复记录，无需 Python。与 HERO Rules、Goal Pulse 配合，分别保持**聚焦、推进与连续性**。
+
 - **2026-11-01** — **Codex Goal Pulse。** [技能与本地提醒器](skills/goal-pulse/README.md)安装后，在启动或继续 Goal 时默认启用，提醒主代理及时回收产物、处理反复卡点，无需再点名技能。每 30 分钟发送中英双语提醒，Goal 暂停时静默；HERO 核心规则不变。
 
   定时器发送的完整中文提示：
@@ -65,6 +67,9 @@
   >
   > 不得降低原目标、难度和验收标准，不得越过授权和预算；直接行动，无需专门回复本提醒。
 
+<details>
+<summary>历史更新（2026 年 8–9 月）</summary>
+
 - **2026-09-03** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 📣 **规则 7 加入发布会原则,重新粘一遍。** 论文是发布会,不是工作汇报:围绕最强结果组织;不占优的数字是取舍就说成取舍,不是就平实陈述,都不写成认输,数字照样留在表里。采自 [anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill)([@Adkid-Zephyr](https://github.com/Adkid-Zephyr)),那边有面向论文的完整版。
 - **2026-09-02** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) 🏃 **块变了,重新粘一遍。** 新增规则 8:推进本身是交付的一部分——方案都合理就选一个写明取舍,别停下来发选择题。规则 7 补上过程痕迹:中间报错、废方案、AI 署名和模型腔都不是内容,新增规则 9 完整写明。两条都提炼自一位 ML 研究者的实际配置,[原件](examples/ml-research-daily-driver.zh-CN.md)收进 `examples/`。新命名一条旁支:停摆(stalling)。
 - **2026-08-26** — ![BLOCK](https://img.shields.io/badge/BLOCK-2E7D32?style=flat-square) ✍️ **规则 7,外加两条新旁支:防御性文字。** 每段撒 caveat,整篇写成道歉信(`SIB-003`);指令忏悔进成品——叫它"别提 X",它写"我们不讨论 X"(`SIB-004`)。规则 7:交付物不是答辩记录。提炼自一条真实写作流水线的修复:它产的论文已经变成了忏悔书。
@@ -74,6 +79,8 @@
 - **2026-08-11** — ![NEW](https://img.shields.io/badge/NEW-red?style=flat-square) 🧱 **HERO 发布。**
 
 > ⚠️ **在上面这些之前粘过块?你那份是旧的。** 安装命令修不了——防重复追加的 guard 同时也拦住了替换。删掉旧的 `=== 范围约束…===` 那段,重跑一次。
+
+</details>
 
 ---
 
